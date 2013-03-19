@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<plugin>
+  <id>Messanger</id>
+  <version>1</version>
+  <name>Messaging</name>
+  <description>Adds frenemies and private chat to the world</description>
+  <authors>
+    <author>Steve</author>
+  </authors>  
+  <scripts>
+    <script>utils.rb</script>
+    <script>handlers.rb</script>
+  </scripts>
+  <dependencies />
+</plugin>

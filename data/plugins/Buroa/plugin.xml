@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<plugin>
+  <id>Buroa</id>
+  <version>1</version>
+  <name>Buroa</name>
+  <description>Transforms buroas inventory</description>
+  <authors>
+    <author>Steve</author>
+  </authors>  
+  <scripts>
+    <script>buroa.rb</script>
+  </scripts>
+  <dependencies />
+</plugin>

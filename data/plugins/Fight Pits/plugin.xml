@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<plugin>
+  <id>Fight Pits</id>
+  <version>1</version>
+  <name>Fight pits minigame</name>
+  <description>Adds the fight pits minigame to the world.</description>
+  <authors>
+    <author>Steve</author>
+  </authors>  
+  <scripts>
+    <script>constants.rb</script>
+    <script>listener.rb</script>
+    <script>objects.rb</script>
+    <script>game.rb</script>
+  </scripts>
+  <dependencies>
+    <dependency>Minigame</dependency>
+  </dependencies>
+</plugin>

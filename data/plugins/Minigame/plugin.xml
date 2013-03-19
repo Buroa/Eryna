@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<plugin>
+  <id>Minigame</id>
+  <version>1</version>
+  <name>Minigames</name>
+  <description>Contains classes for extending onto a minigame</description>
+  <authors>
+    <author>Steve</author>
+  </authors>  
+  <scripts>
+    <script>minigame.rb</script>
+    <script>minigame_listener.rb</script>
+    <script>minigame_player_listener.rb</script>
+  </scripts>
+  <dependencies>
+    <dependency>Skills+</dependency>
+  </dependencies>
+</plugin>

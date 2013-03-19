@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<plugin>
+  <id>CRSPS</id>
+  <version>1</version>
+  <name>Corruption RSPS Content</name>
+  <description>This turns the world better known as Konklex into a old private server named Corruption RSPS.</description>
+  <authors>
+    <author>Steve</author>
+  </authors>
+  <scripts>
+    <script>home.rb</script>
+    <script>broodoo.rb</script>
+    <script>commands.rb</script>
+    <script>quests.rb</script>
+  </scripts>
+  <dependencies>
+    <dependency>Skills+</dependency>
+  </dependencies>
+</plugin>

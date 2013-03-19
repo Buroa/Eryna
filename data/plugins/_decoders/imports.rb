@@ -1,0 +1,5 @@
+require 'java'
+java_import 'org.apollo.net.codec.game.DataTransformation'
+java_import 'org.apollo.net.codec.game.DataType'
+java_import 'org.apollo.net.codec.game.DataOrder'
+java_import 'org.apollo.net.codec.game.GamePacketReader'

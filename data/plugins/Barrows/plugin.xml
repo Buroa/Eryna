@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<plugin>
+  <id>Barrows</id>
+  <version>1</version>
+  <name>Barrows</name>
+  <description>Adds the barrows game to the world.</description>
+  <authors>
+    <author>Steve</author>
+  </authors>
+  <scripts>
+    <script>barrows.rb</script>
+    <script>barrows_npcs.rb</script>
+    <script>barrows_listener.rb</script>
+  </scripts>
+  <dependencies>
+    <dependency>Skills+</dependency>
+  </dependencies>
+</plugin>

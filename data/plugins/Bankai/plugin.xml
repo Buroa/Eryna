@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<plugin>
+  <id>Bankai</id>
+  <version>1</version>
+  <name>Bank</name>
+  <description>Opens the bank interface when players select 'use-quickly' on a bank booth, or the deposit box when a player selects 'open' on the associated object.</description>
+  <authors>
+    <author>Graham</author>
+    <author>Chris Fletcher</author>
+  </authors>
+  <scripts>
+    <script>bank.rb</script>
+    <script>deposit-box.rb</script>
+  </scripts>
+  <dependencies />
+</plugin>

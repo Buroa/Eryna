@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<plugin>
+  <id>'Calls</id>
+  <version>1</version>
+  <name>World calls</name>
+  <description>Registers world calls that can be executed threw the api.</description>
+  <authors>
+    <author>Steve</author>
+  </authors>
+  <scripts>
+    <script>account.rb</script>
+  </scripts>
+  <dependencies />
+</plugin>

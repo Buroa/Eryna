@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<plugin>
+  <id>Vote4Us</id>
+  <version>1</version>
+  <name>Voting</name>
+  <description>Allows players to recieve items for voting.</description>
+  <authors>
+    <author>Steve</author>
+  </authors>
+  <scripts>
+    <script>items.rb</script>
+    <script>payment.rb</script>
+    <script>shop.rb</script>
+    <script>sites.rb</script>
+    <script>votes.rb</script>
+    <script>vote.rb</script>
+  </scripts>
+  <dependencies>
+    <dependency>Shops</dependency>
+  </dependencies>
+</plugin>

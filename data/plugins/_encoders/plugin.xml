@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<plugin>
+  <id>_encoders</id>
+  <version>1</version>
+  <name>Encoders</name>
+  <description>Capable of encoding a event into a game packet.</description>
+  <authors>
+    <author>Steve</author>
+  </authors>
+  <scripts>
+    <script>imports.rb</script>
+    <script>id_assignment.rb</script>
+    <script>interfaces.rb</script>
+    <script>items.rb</script>
+    <script>messaging.rb</script>
+    <script>misc.rb</script>
+    <script>positions.rb</script>
+    <script>region_change.rb</script>
+    <script>server_message.rb</script>
+    <script>skills.rb</script>
+    <script>song.rb</script>
+  </scripts>
+  <dependencies />
+</plugin>

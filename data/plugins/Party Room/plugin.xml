@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<plugin>
+  <id>Party Room</id>
+  <version>1</version>
+  <name>The C'lot party room</name>
+  <description>Allows the full party room actions</description>
+  <authors>
+    <author>Steve</author>
+  </authors>  
+  <scripts>
+    <script>partyroom_deposit_inventory_listener.rb</script>
+    <script>partyroom_global_inventory_listener.rb</script>
+    <script>partyroom_drops.rb</script>
+    <script>partyroom.rb</script>
+  </scripts>
+  <dependencies/>
+</plugin>

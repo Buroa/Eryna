@@ -1,0 +1,31 @@
+<npc>
+	<npc id="1624">
+		<skills>
+			<hitpoints level="20"></hitpoints>
+			<defence level="20000"></defence>
+			<attack level="20000"></attack>
+			<strength level="20000"></strength>
+		</skills>
+	</npc>
+	<npc id="1265"> //Rock crabs
+		<skills>
+			<attack level="-10"></attack>
+			<strength level="-10"></strength>
+			<hitpoints level="99"></hitpoints>
+		</skills>
+	</npc>
+	<npc id="2025">
+		<skills>
+			<magic level="99"></magic>
+			<hitpoints level="120"></hitpoints>
+		</skills>
+	</npc>
+	<npc id="2026">
+		<skills>
+			<hitpoints level="150"></hitpoints>
+			<defence level="250"></defence>
+			<attack level="250"></attack>
+			<strength level="250"></strength>
+		</skills>
+	</npc>
+</npc>

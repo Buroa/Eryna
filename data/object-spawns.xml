@@ -1,0 +1,1219 @@
+<spawn>
+
+	// START OF HOME
+	<object id="1" del="true">
+		<position>
+			<x>3092</x>
+			<y>3496</y>
+		</position>
+	</object>
+	<object id="1" del="true">
+		<position>
+			<x>3091</x>
+			<y>3495</y>
+		</position>
+	</object>
+	<object id="1" del="true">
+		<position>
+			<x>3090</x>
+			<y>3496</y>
+		</position>
+	</object>
+	<object id="1" del="true">
+		<position>
+			<x>3090</x>
+			<y>3494</y>
+		</position>
+	</object>
+	<object id="1" type="0" del="true">
+		<position>
+			<x>3095</x>
+			<y>3493</y>
+		</position>
+	</object>
+	<object id="1" type="0" del="true">
+		<position>
+			<x>3095</x>
+			<y>3492</y>
+		</position>
+	</object>
+	<object id="1" type="0" del="true">
+		<position>
+			<x>3097</x>
+			<y>3493</y>
+		</position>
+	</object>
+	<object id="1" type="0" del="true">
+		<position>
+			<x>3095</x>
+			<y>3490</y>
+		</position>
+	</object>
+	<object id="1" type="0" del="true">
+		<position>
+			<x>3095</x>
+			<y>3488</y>
+		</position>
+	</object>
+	<object id="1" type="0" del="true">
+		<position>
+			<x>3096</x>
+			<y>3492</y>
+		</position>
+	</object>
+	<object id="1" type="0" del="true">
+		<position>
+			<x>3096</x>
+			<y>3491</y>
+		</position>
+	</object>
+	<object id="1" type="0" del="true">
+		<position>
+			<x>3096</x>
+			<y>3490</y>
+		</position>
+	</object>
+	<object id="1" type="0" del="true">
+		<position>
+			<x>3096</x>
+			<y>3489</y>
+		</position>
+	</object>
+	<object id="1" del="true">
+		<position>
+			<x>3095</x>
+			<y>3489</y>
+		</position>
+	</object>
+	<object id="1" del="true">
+		<position>
+			<x>3095</x>
+			<y>3491</y>
+		</position>
+	</object>
+	<object id="1" del="true">
+		<position>
+			<x>3096</x>
+			<y>3493</y>
+		</position>
+	</object>
+	<object id="1" del="true">
+		<position>
+			<x>3098</x>
+			<y>3493</y>
+		</position>
+	</object>
+	<object id="1" del="true">
+		<position>
+			<x>3098</x>
+			<y>3496</y>
+		</position>
+	</object>
+	<object id="1" del="true">
+		<position>
+			<x>3095</x>
+			<y>3498</y>
+		</position>
+	</object>
+	<object id="1" del="true">
+		<position>
+			<x>3095</x>
+			<y>3499</y>
+		</position>
+	</object>
+	<object id="1" del="true">
+		<position>
+			<x>3092</x>
+			<y>3488</y>
+		</position>
+	</object>
+	<object id="2875" face="-3">
+		<position>
+			<x>3098</x>
+			<y>3495</y>
+		</position>
+	</object>
+	<object id="586" face="-3">
+		<position>
+			<x>3098</x>
+			<y>3494</y>
+		</position>
+	</object>
+	<object id="587" face="-3">
+		<position>
+			<x>3098</x>
+			<y>3493</y>
+		</position>
+	</object>
+	<object id="2213" face="-4">
+		<position>
+			<x>3097</x>
+			<y>3497</y>
+		</position>
+	</object>
+	<object id="2213" face="-4">
+		<position>
+			<x>3095</x>
+			<y>3497</y>
+		</position>
+	</object>
+	<object id="2213" face="-3">
+		<position>
+			<x>3094</x>
+			<y>3498</y>
+		</position>
+	</object>
+	<object id="1158" face="-3">
+		<position>
+			<x>3098</x>
+			<y>3497</y>
+		</position>
+	</object>
+	<object id="1158" face="-3">
+		<position>
+			<x>3096</x>
+			<y>3497</y>
+		</position>
+	</object>
+	<object id="1158" face="-3">
+		<position>
+			<x>3094</x>
+			<y>3497</y>
+		</position>
+	</object>
+	<object id="1158" face="-3">
+		<position>
+			<x>3094</x>
+			<y>3499</y>
+		</position>
+	</object>
+	<object id="2213" face="-3">
+		<position>
+			<x>3094</x>
+			<y>3490</y>
+		</position>
+	</object>
+	<object id="2213" face="-3">
+		<position>
+			<x>3094</x>
+			<y>3488</y>
+		</position>
+	</object>
+	<object id="2213" face="-4">
+		<position>
+			<x>3095</x>
+			<y>3491</y>
+		</position>
+	</object>
+	<object id="2213" face="-4">
+		<position>
+			<x>3097</x>
+			<y>3491</y>
+		</position>
+	</object>
+	<object id="1158" face="-3">
+		<position>
+			<x>3098</x>
+			<y>3491</y>
+		</position>
+	</object>
+	<object id="1158" face="-3">
+		<position>
+			<x>3096</x>
+			<y>3491</y>
+		</position>
+	</object>
+	<object id="1158" face="-3">
+		<position>
+			<x>3094</x>
+			<y>3491</y>
+		</position>
+	</object>
+	<object id="1158" face="-3">
+		<position>
+			<x>3094</x>
+			<y>3489</y>
+		</position>
+	</object>
+	<object id="4156" face="-2">
+		<position>
+			<x>3091</x>
+			<y>3493</y>
+		</position>
+	</object>
+	<object id="4156" face="-2">
+		<position>
+			<x>3091</x>
+			<y>3497</y>
+		</position>
+	</object>
+	// END OF HOME
+
+	// START OF BROODOO MINIGAME
+	<object id="1868">
+		<position>
+			<x>2902</x>
+			<y>2899</y>
+		</position>
+	</object>
+	<object id="1868">
+		<position>
+			<x>2903</x>
+			<y>2899</y>
+		</position>
+	</object>
+	<object id="1868">
+		<position>
+			<x>2904</x>
+			<y>2899</y>
+		</position>
+	</object>
+	<object id="1868">
+		<position>
+			<x>2905</x>
+			<y>2899</y>
+		</position>
+	</object>
+	<object id="1868">
+		<position>
+			<x>2906</x>
+			<y>2899</y>
+		</position>
+	</object>
+	<object id="1868">
+		<position>
+			<x>2907</x>
+			<y>2899</y>
+		</position>
+	</object>
+	<object id="1868" face="-3">
+		<position>
+			<x>2908</x>
+			<y>2898</y>
+		</position>
+	</object>
+	<object id="1868" face="-3">
+		<position>
+			<x>2908</x>
+			<y>2897</y>
+		</position>
+	</object>
+	<object id="1868" face="-3">
+		<position>
+			<x>2908</x>
+			<y>2896</y>
+		</position>
+	</object>
+	<object id="1868" face="-3">
+		<position>
+			<x>2908</x>
+			<y>2895</y>
+		</position>
+	</object>
+	<object id="1868" face="-3">
+		<position>
+			<x>2908</x>
+			<y>2894</y>
+		</position>
+	</object>
+	<object id="1868" face="-3">
+		<position>
+			<x>2908</x>
+			<y>2893</y>
+		</position>
+	</object>
+	<object id="1868">
+		<position>
+			<x>2903</x>
+			<y>2893</y>
+		</position>
+	</object>
+	<object id="1868" face="-2">
+		<position>
+			<x>2904</x>
+			<y>2893</y>
+		</position>
+	</object>
+	<object id="1868">
+		<position>
+			<x>2904</x>
+			<y>2893</y>
+		</position>
+	</object>
+	<object id="1868">
+		<position>
+			<x>2905</x>
+			<y>2893</y>
+		</position>
+	</object>
+	<object id="1868">
+		<position>
+			<x>2906</x>
+			<y>2893</y>
+		</position>
+	</object>
+	<object id="1868">
+		<position>
+			<x>2907</x>
+			<y>2893</y>
+		</position>
+	</object>
+	<object id="1868" face="-1">
+		<position>
+			<x>2902</x>
+			<y>2893</y>
+		</position>
+	</object>
+	<object id="1868" face="-1">
+		<position>
+			<x>2902</x>
+			<y>2894</y>
+		</position>
+	</object>
+	<object id="1868" face="-1">
+		<position>
+			<x>2902</x>
+			<y>2897</y>
+		</position>
+	</object>
+	<object id="1868" face="-1">
+		<position>
+			<x>2902</x>
+			<y>2898</y>
+		</position>
+	</object>
+	<object id="9367" face="-1">
+		<position>
+			<x>2902</x>
+			<y>2896</y>
+		</position>
+	</object>
+	<object id="2156" face="-2">
+		<position>
+			<x>2907</x>
+			<y>2896</y>
+		</position>
+	</object>
+	<object id="2213" face="-1">
+		<position>
+			<x>2907</x>
+			<y>2894</y>
+		</position>
+	</object>
+	<object id="1868">
+		<position>
+			<x>2902</x>
+			<y>2899</y>
+			<height>1</height>
+		</position>
+	</object>
+	<object id="1868">
+		<position>
+			<x>2903</x>
+			<y>2899</y>
+			<height>1</height>
+		</position>
+	</object>
+	<object id="1868">
+		<position>
+			<x>2904</x>
+			<y>2899</y>
+			<height>1</height>
+		</position>
+	</object>
+	<object id="1868">
+		<position>
+			<x>2905</x>
+			<y>2899</y>
+			<height>1</height>
+		</position>
+	</object>
+	<object id="1868">
+		<position>
+			<x>2906</x>
+			<y>2899</y>
+			<height>1</height>
+		</position>
+	</object>
+	<object id="1868">
+		<position>
+			<x>2907</x>
+			<y>2899</y>
+			<height>1</height>
+		</position>
+	</object>
+	<object id="1868" face="-3">
+		<position>
+			<x>2908</x>
+			<y>2898</y>
+			<height>1</height>
+		</position>
+	</object>
+	<object id="1868" face="-3">
+		<position>
+			<x>2908</x>
+			<y>2897</y>
+			<height>1</height>
+		</position>
+	</object>
+	<object id="1868" face="-3">
+		<position>
+			<x>2908</x>
+			<y>2896</y>
+			<height>1</height>
+		</position>
+	</object>
+	<object id="1868" face="-3">
+		<position>
+			<x>2908</x>
+			<y>2895</y>
+			<height>1</height>
+		</position>
+	</object>
+	<object id="1868" face="-3">
+		<position>
+			<x>2908</x>
+			<y>2894</y>
+			<height>1</height>
+		</position>
+	</object>
+	<object id="1868" face="-3">
+		<position>
+			<x>2908</x>
+			<y>2893</y>
+			<height>1</height>
+		</position>
+	</object>
+	<object id="1868">
+		<position>
+			<x>2903</x>
+			<y>2893</y>
+			<height>1</height>
+		</position>
+	</object>
+	<object id="1868" face="-2">
+		<position>
+			<x>2904</x>
+			<y>2893</y>
+			<height>1</height>
+		</position>
+	</object>
+	<object id="1868">
+		<position>
+			<x>2904</x>
+			<y>2893</y>
+			<height>1</height>
+		</position>
+	</object>
+	<object id="1868">
+		<position>
+			<x>2905</x>
+			<y>2893</y>
+			<height>1</height>
+		</position>
+	</object>
+	<object id="1868">
+		<position>
+			<x>2906</x>
+			<y>2893</y>
+			<height>1</height>
+		</position>
+	</object>
+	<object id="1868">
+		<position>
+			<x>2907</x>
+			<y>2893</y>
+			<height>1</height>
+		</position>
+	</object>
+	<object id="1868" face="-1">
+		<position>
+			<x>2902</x>
+			<y>2893</y>
+			<height>1</height>
+		</position>
+	</object>
+	<object id="1868" face="-1">
+		<position>
+			<x>2902</x>
+			<y>2894</y>
+			<height>1</height>
+		</position>
+	</object>
+	<object id="1868" face="-1">
+		<position>
+			<x>2902</x>
+			<y>2897</y>
+			<height>1</height>
+		</position>
+	</object>
+	<object id="1868" face="-1">
+		<position>
+			<x>2902</x>
+			<y>2898</y>
+			<height>1</height>
+		</position>
+	</object>
+	<object id="9367" face="-1">
+		<position>
+			<x>2902</x>
+			<y>2896</y>
+			<height>1</height>
+		</position>
+	</object>
+	<object id="2156" face="-2">
+		<position>
+			<x>2907</x>
+			<y>2896</y>
+			<height>1</height>
+		</position>
+	</object>
+	<object id="2213" face="-1">
+		<position>
+			<x>2907</x>
+			<y>2894</y>
+			<height>1</height>
+		</position>
+	</object>
+	<object id="1868">
+		<position>
+			<x>2902</x>
+			<y>2899</y>
+			<height>2</height>
+		</position>
+	</object>
+	<object id="1868">
+		<position>
+			<x>2903</x>
+			<y>2899</y>
+			<height>2</height>
+		</position>
+	</object>
+	<object id="1868">
+		<position>
+			<x>2904</x>
+			<y>2899</y>
+			<height>2</height>
+		</position>
+	</object>
+	<object id="1868">
+		<position>
+			<x>2905</x>
+			<y>2899</y>
+			<height>2</height>
+		</position>
+	</object>
+	<object id="1868">
+		<position>
+			<x>2906</x>
+			<y>2899</y>
+			<height>2</height>
+		</position>
+	</object>
+	<object id="1868">
+		<position>
+			<x>2907</x>
+			<y>2899</y>
+			<height>2</height>
+		</position>
+	</object>
+	<object id="1868" face="-3">
+		<position>
+			<x>2908</x>
+			<y>2898</y>
+			<height>2</height>
+		</position>
+	</object>
+	<object id="1868" face="-3">
+		<position>
+			<x>2908</x>
+			<y>2897</y>
+			<height>2</height>
+		</position>
+	</object>
+	<object id="1868" face="-3">
+		<position>
+			<x>2908</x>
+			<y>2896</y>
+			<height>2</height>
+		</position>
+	</object>
+	<object id="1868" face="-3">
+		<position>
+			<x>2908</x>
+			<y>2895</y>
+			<height>2</height>
+		</position>
+	</object>
+	<object id="1868" face="-3">
+		<position>
+			<x>2908</x>
+			<y>2894</y>
+			<height>2</height>
+		</position>
+	</object>
+	<object id="1868" face="-3">
+		<position>
+			<x>2908</x>
+			<y>2893</y>
+			<height>2</height>
+		</position>
+	</object>
+	<object id="1868">
+		<position>
+			<x>2903</x>
+			<y>2893</y>
+			<height>2</height>
+		</position>
+	</object>
+	<object id="1868" face="-2">
+		<position>
+			<x>2904</x>
+			<y>2893</y>
+			<height>2</height>
+		</position>
+	</object>
+	<object id="1868">
+		<position>
+			<x>2904</x>
+			<y>2893</y>
+			<height>2</height>
+		</position>
+	</object>
+	<object id="1868">
+		<position>
+			<x>2905</x>
+			<y>2893</y>
+			<height>2</height>
+		</position>
+	</object>
+	<object id="1868">
+		<position>
+			<x>2906</x>
+			<y>2893</y>
+			<height>2</height>
+		</position>
+	</object>
+	<object id="1868">
+		<position>
+			<x>2907</x>
+			<y>2893</y>
+			<height>2</height>
+		</position>
+	</object>
+	<object id="1868" face="-1">
+		<position>
+			<x>2902</x>
+			<y>2893</y>
+			<height>2</height>
+		</position>
+	</object>
+	<object id="1868" face="-1">
+		<position>
+			<x>2902</x>
+			<y>2894</y>
+			<height>2</height>
+		</position>
+	</object>
+	<object id="1868" face="-1">
+		<position>
+			<x>2902</x>
+			<y>2897</y>
+			<height>2</height>
+		</position>
+	</object>
+	<object id="1868" face="-1">
+		<position>
+			<x>2902</x>
+			<y>2898</y>
+			<height>2</height>
+		</position>
+	</object>
+	<object id="9367" face="-1">
+		<position>
+			<x>2902</x>
+			<y>2896</y>
+			<height>2</height>
+		</position>
+	</object>
+	<object id="2156" face="-2">
+		<position>
+			<x>2907</x>
+			<y>2896</y>
+			<height>2</height>
+		</position>
+	</object>
+	<object id="2213" face="-1">
+		<position>
+			<x>2907</x>
+			<y>2894</y>
+			<height>2</height>
+		</position>
+	</object>
+	// END OF BROODOO MINIGAME
+
+	// START OF DONOR TRAINING AREA
+	<object id="1" del="true">
+		<position>
+			<x>2854</x>
+			<y>2954</y>
+		</position>
+	</object>
+	<object id="1" del="true">
+		<position>
+			<x>2854</x>
+			<y>2953</y>
+		</position>
+	</object>
+	<object id="1" del="true">
+		<position>
+			<x>2854</x>
+			<y>2952</y>
+		</position>
+	</object>
+	<object id="1" del="true">
+		<position>
+			<x>2850</x>
+			<y>2953</y>
+		</position>
+	</object>
+	<object id="1" del="true">
+		<position>
+			<x>2851</x>
+			<y>2952</y>
+		</position>
+	</object>
+	<object id="1" del="true">
+		<position>
+			<x>2860</x>
+			<y>2954</y>
+		</position>
+	</object>
+	<object id="1" del="true">
+		<position>
+			<x>2848</x>
+			<y>2954</y>
+		</position>
+	</object>
+	<object id="1" del="true">
+		<position>
+			<x>2856</x>
+			<y>2953</y>
+		</position>
+	</object>
+	<object id="1" del="true">
+		<position>
+			<x>2856</x>
+			<y>2954</y>
+		</position>
+	</object>
+	<object id="1" del="true">
+		<position>
+			<x>2847</x>
+			<y>2953</y>
+		</position>
+	</object>
+	<object id="1" del="true">
+		<position>
+			<x>2847</x>
+			<y>2953</y>
+		</position>
+	</object>
+	<object id="1" del="true">
+		<position>
+			<x>2857</x>
+			<y>2954</y>
+		</position>
+	</object>
+	<object id="1" del="true">
+		<position>
+			<x>2848</x>
+			<y>2953</y>
+		</position>
+	</object>
+	<object id="1" del="true">
+		<position>
+			<x>2857</x>
+			<y>2953</y>
+		</position>
+	</object>
+	<object id="1" del="true">
+		<position>
+			<x>2844</x>
+			<y>2954</y>
+		</position>
+	</object>
+	<object id="1" type="0" del="true">
+		<position>
+			<x>2856</x>
+			<y>2963</y>
+		</position>
+	</object>
+	<object id="1" del="true">
+		<position>
+			<x>2859</x>
+			<y>2964</y>
+		</position>
+	</object>
+	<object id="1" del="true">
+		<position>
+			<x>2844</x>
+			<y>2952</y>
+		</position>
+	</object>
+	<object id="1" del="true">
+		<position>
+			<x>2871</x>
+			<y>2971</y>
+		</position>
+	</object>
+	<object id="1" del="true">
+		<position>
+			<x>2869</x>
+			<y>2971</y>
+		</position>
+	</object>
+	<object id="1" del="true">
+		<position>
+			<x>2869</x>
+			<y>2971</y>
+		</position>
+	</object>
+	<object id="1" del="true">
+		<position>
+			<x>2869</x>
+			<y>2972</y>
+		</position>
+	</object>
+	<object id="2213" face="-2">
+		<position>
+			<x>2853</x>
+			<y>2951</y>
+		</position>
+	</object>
+	<object id="2213" face="-2">
+		<position>
+			<x>2852</x>
+			<y>2951</y>
+		</position>
+	</object>
+	<object id="2213" face="-2">
+		<position>
+			<x>2851</x>
+			<y>2951</y>
+		</position>
+	</object>
+	<object id="4156" face="-2">
+		<position>
+			<x>2860</x>
+			<y>2954</y>
+		</position>
+	</object>
+	<object id="162" face="-4">
+		<position>
+			<x>2871</x>
+			<y>2968</y>
+		</position>
+	</object>
+	<object id="2783" face="-4">
+		<position>
+			<x>2859</x>
+			<y>2966</y>
+		</position>
+	</object>
+	<object id="2090" face="-1">
+		<position>
+			<x>2823</x>
+			<y>2999</y>
+		</position>
+	</object>
+	<object id="2094" face="-1">
+		<position>
+			<x>2821</x>
+			<y>2998</y>
+		</position>
+	</object>
+	<object id="2092" face="-1">
+		<position>
+			<x>2820</x>
+			<y>2998</y>
+		</position>
+	</object>
+	<object id="2096" face="-1">
+		<position>
+			<x>2821</x>
+			<y>3000</y>
+		</position>
+	</object>
+	<object id="2102" face="-1">
+		<position>
+			<x>2823</x>
+			<y>3002</y>
+		</position>
+	</object>
+	<object id="2104" face="-1">
+		<position>
+			<x>2825</x>
+			<y>3003</y>
+		</position>
+	</object>
+	<object id="2106" face="-1">
+		<position>
+			<x>2825</x>
+			<y>3001</y>
+		</position>
+	</object>
+	<object id="1308">
+		<position>
+			<x>2830</x>
+			<y>3003</y>
+		</position>
+	</object>
+	<object id="1306">
+		<position>
+			<x>2832</x>
+			<y>3003</y>
+		</position>
+	</object>
+	<object id="1307">
+		<position>
+			<x>2830</x>
+			<y>3000</y>
+		</position>
+	</object>
+	<object id="1309">
+		<position>
+			<x>2831</x>
+			<y>2997</y>
+		</position>
+	</object>
+	<object id="2213" face="-3">
+		<position>
+			<x>2856</x>
+			<y>2966</y>
+		</position>
+	</object>
+	<object id="5249">
+		<position>
+			<x>2857</x>
+			<y>2968</y>
+		</position>
+	</object>
+	<object id="5249">
+		<position>
+			<x>2858</x>
+			<y>2968</y>
+		</position>
+	</object>
+	<object id="5249">
+		<position>
+			<x>2856</x>
+			<y>2968</y>
+		</position>
+	</object>
+	<object id="4876">
+		<position>
+			<x>2826</x>
+			<y>2959</y>
+		</position>
+	</object>
+	<object id="2728">
+		<position>
+			<x>2868</x>
+			<y>2971</y>
+		</position>
+	</object>
+	<object id="9302">
+		<position>
+			<x>2835</x>
+			<y>2957</y>
+		</position>
+	</object>
+	<object id="7965">
+		<position>
+			<x>2843</x>
+			<y>2953</y>
+		</position>
+	</object>
+	// END OF DONOR TRAINING AREA
+
+	// START OF 1V1 PK
+	<object id="2213">
+		<position>
+			<x>3243</x>
+			<y>3515</y>
+		</position>
+	</object>
+	<object id="2213">
+		<position>
+			<x>3244</x>
+			<y>3515</y>
+		</position>
+	</object>
+	<object id="1156">
+		<position>
+			<x>3240</x>
+			<y>3519</y>
+		</position>
+	</object>
+	<object id="1156">
+		<position>
+			<x>3241</x>
+			<y>3519</y>
+		</position>
+	</object>
+	<object id="1156">
+		<position>
+			<x>3242</x>
+			<y>3519</y>
+		</position>
+	</object>
+	<object id="1156">
+		<position>
+			<x>3242</x>
+			<y>3518</y>
+		</position>
+	</object>
+	<object id="1156">
+		<position>
+			<x>3242</x>
+			<y>3517</y>
+		</position>
+	</object>
+	<object id="1156">
+		<position>
+			<x>3245</x>
+			<y>3519</y>
+		</position>
+	</object>
+	<object id="1156">
+		<position>
+			<x>3246</x>
+			<y>3519</y>
+		</position>
+	</object>
+	<object id="1156">
+		<position>
+			<x>3247</x>
+			<y>3519</y>
+		</position>
+	</object>
+	<object id="1156">
+		<position>
+			<x>3244</x>
+			<y>3519</y>
+		</position>
+	</object>
+	<object id="1156">
+		<position>
+			<x>3244</x>
+			<y>3517</y>
+		</position>
+	</object>
+	<object id="409" face="-2">
+		<position>
+			<x>3245</x>
+			<y>3517</y>
+		</position>
+	</object>
+	<object id="6552" face="-2">
+		<position>
+			<x>3244</x>
+			<y>3518</y>
+		</position>
+	</object>
+	// END OF 1V1 PK
+
+	// START OF CUSTOM SKILLER
+	<object id="2213" face="-1">
+		<position>
+			<x>2602</x>
+			<y>3397</y>
+		</position>
+	</object>
+	<object id="2094">
+		<position>
+			<x>2595</x>
+			<y>3409</y>
+		</position>
+	</object>
+	<object id="2090">
+		<position>
+			<x>2594</x>
+			<y>3410</y>
+		</position>
+	</object>
+	<object id="2106">
+		<position>
+			<x>2585</x>
+			<y>3410</y>
+		</position>
+	</object>
+	<object id="2106">
+		<position>
+			<x>2586</x>
+			<y>3409</y>
+		</position>
+	</object>
+	<object id="2104">
+		<position>
+			<x>2579</x>
+			<y>3416</y>
+		</position>
+	</object>
+	<object id="2104">
+		<position>
+			<x>2580</x>
+			<y>3415</y>
+		</position>
+	</object>
+	<object id="2096">
+		<position>
+			<x>2598</x>
+			<y>3402</y>
+		</position>
+	</object>
+	<object id="2096">
+		<position>
+			<x>2598</x>
+			<y>3399</y>
+		</position>
+	</object>
+	<object id="2102">
+		<position>
+			<x>2590</x>
+			<y>3409</y>
+		</position>
+	</object>
+	<object id="2102">
+		<position>
+			<x>2593</x>
+			<y>3409</y>
+		</position>
+	</object>
+	<object id="2092">
+		<position>
+			<x>2598</x>
+			<y>3400</y>
+		</position>
+	</object>
+	<object id="2092">
+		<position>
+			<x>2598</x>
+			<y>3401</y>
+		</position>
+	</object>
+	<object id="1309">
+		<position>
+			<x>2588</x>
+			<y>3410</y>
+		</position>
+	</object>
+	<object id="1281">
+		<position>
+			<x>2598</x>
+			<y>3410</y>
+		</position>
+	</object>
+	// END OF CUSTOM SKILLER
+</spawn>

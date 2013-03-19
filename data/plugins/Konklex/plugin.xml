@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<plugin>
+  <id>Konklex</id>
+  <version>1</version>
+  <name>Konklex actions</name>
+  <description>Adds default actions to konklex.</description>
+  <authors>
+    <author>Steve</author>
+  </authors>
+  <scripts>
+    <script>button_default.rb</script>
+    <script>button_emotetab.rb</script>
+    <script>button_run.rb</script>
+    <script>cmd_anim.rb</script>
+    <script>cmd_bank.rb</script>
+    <script>cmd_config.rb</script>
+    <script>cmd_crsps.rb</script>
+    <script>cmd_eval.rb</script>
+    <script>cmd_gfx.rb</script>
+    <script>cmd_hide.rb</script>
+    <script>cmd_home.rb</script>
+    <script>cmd_item.rb</script>
+    <script>cmd_music.rb</script>
+    <script>cmd_npc.rb</script>
+    <script>cmd_pnpc.rb</script>
+    <script>cmd_rights.rb</script>
+    <script>cmd_skill.rb</script>
+    <script>cmd_sound.rb</script>
+    <script>cmd_teleport.rb</script>
+    <script>cmd_yell.rb</script>
+  </scripts>
+  <dependencies />
+</plugin>

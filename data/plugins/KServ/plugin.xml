@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<plugin>
+  <id>KServ</id>
+  <version>1</version>
+  <name>Internet Relay Chat Bot</name>
+  <description>Relay's messages to and from the channel.</description>
+  <authors>
+    <author>Steve</author>
+  </authors>
+  <scripts>
+    <script>utils.rb</script>
+    <script>command.rb</script>
+    <script>commandlistener.rb</script>
+    <script>commands.rb</script>
+    <script>dispatcher.rb</script>
+    <script>irclistener.rb</script>
+    <script>irc.rb</script>
+  </scripts>
+  <dependencies />
+</plugin>
