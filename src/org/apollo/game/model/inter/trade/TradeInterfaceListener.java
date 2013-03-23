@@ -4,14 +4,19 @@ import org.apollo.game.model.Player;
 import org.apollo.game.model.inter.InterfaceAdapter;
 
 /**
+ * An {@link InterfaceAdapter} which listens for a trade interface closed.
  * @author Steve
  */
 public final class TradeInterfaceListener extends InterfaceAdapter {
 
+	/**
+	 * The trade session.
+	 */
 	private final TradeSession session;
 
 	/**
-	 * @param session
+	 * Creates a new trade interface listener.
+	 * @param session The trade session.
 	 */
 	public TradeInterfaceListener(TradeSession session) {
 		this.session = session;

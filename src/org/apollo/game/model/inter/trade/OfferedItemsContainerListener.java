@@ -9,17 +9,25 @@ import org.apollo.game.model.SlottedItem;
 import org.apollo.game.model.inv.InventoryAdapter;
 
 /**
+ * An {@link InventoryAdapter} used for trading items.
  * @author Steve
  */
 public final class OfferedItemsContainerListener extends InventoryAdapter {
 
+	/**
+	 * The player.
+	 */
 	private final Player player;
 
+	/**
+	 * The player's acquaintance.
+	 */
 	private final Player acquaintance;
 
 	/**
-	 * @param player
-	 * @param acquaintance
+	 * Creates a new offered item container listener.
+	 * @param player The player.
+	 * @param acquaintance The player's acquaintance.
 	 */
 	public OfferedItemsContainerListener(Player player, Player acquaintance) {
 		this.player = player;

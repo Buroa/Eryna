@@ -9,14 +9,19 @@ import org.apollo.game.model.SlottedItem;
 import org.apollo.game.model.inv.InventoryAdapter;
 
 /**
+ * An {@link InventoryAdapter} for the trade inventory.
  * @author Steve
  */
 public final class TradeInventoryContainerListener extends InventoryAdapter {
 
+	/**
+	 * The player.
+	 */
 	private final Player player;
 
 	/**
-	 * @param player
+	 * Creates a new trade inventory container.
+	 * @param player The player.
 	 */
 	public TradeInventoryContainerListener(Player player) {
 		this.player = player;

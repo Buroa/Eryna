@@ -1,8 +1,10 @@
 package org.apollo.game.sync;
 
 import org.apollo.game.GameService;
+import org.apollo.game.model.Npc;
 import org.apollo.game.model.Player;
 import org.apollo.game.model.World;
+import org.apollo.game.sync.task.NpcSynchronizationTask;
 import org.apollo.game.sync.task.PlayerSynchronizationTask;
 import org.apollo.game.sync.task.PostPlayerSynchronizationTask;
 import org.apollo.game.sync.task.PrePlayerSynchronizationTask;
@@ -23,6 +25,14 @@ public final class SequentialClientSynchronizer extends ClientSynchronizer {
 
 	@Override
 	public void synchronize() {
+		synchronizePlayers();
+		synchronizeNpcs();
+	}
+	
+	/**
+	 * Synchronizes the state of the players with the state of the server.
+	 */
+	private void synchronizePlayers() {
 		final CharacterRepository<Player> players = World.getWorld().getPlayerRepository();
 		for (final Player player : players) {
 			final SynchronizationTask task = new PrePlayerSynchronizationTask(player);
@@ -36,6 +46,17 @@ public final class SequentialClientSynchronizer extends ClientSynchronizer {
 
 		for (final Player player : players) {
 			final SynchronizationTask task = new PostPlayerSynchronizationTask(player);
+			task.run();
+		}
+	}
+	
+	/**
+	 * Synchronizes the state of the npcs with the state of the server.
+	 */
+	private void synchronizeNpcs() {
+		final CharacterRepository<Npc> npcs = World.getWorld().getNpcRepository();
+		for (final Npc npc : npcs) {
+			final SynchronizationTask task = new NpcSynchronizationTask(npc);
 			task.run();
 		}
 	}

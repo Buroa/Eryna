@@ -1,13 +1,16 @@
 package org.apollo.net.codec.login;
 
+import java.math.BigInteger;
 import java.security.SecureRandom;
 
 import net.burtleburtle.bob.rand.IsaacRandom;
 
 import org.apollo.fs.FileSystemConstants;
+import org.apollo.game.model.World;
 import org.apollo.security.IsaacRandomPair;
 import org.apollo.security.PlayerCredentials;
 import org.apollo.util.ChannelBufferUtil;
+import org.apollo.util.NameUtil;
 import org.apollo.util.StatefulFrameDecoder;
 import org.jboss.netty.buffer.ChannelBuffer;
 import org.jboss.netty.buffer.ChannelBuffers;
@@ -19,6 +22,16 @@ import org.jboss.netty.channel.ChannelHandlerContext;
  * @author Graham
  */
 public final class LoginDecoder extends StatefulFrameDecoder<LoginDecoderState> {
+	
+	/**
+	 * The RSA modulus.
+	 */
+	private static final BigInteger RSA_MODULUS = new BigInteger("");
+
+	/**
+	 * The RSA exponent.
+	 */
+	private static final BigInteger RSA_EXPONENT = new BigInteger("");
 
 	/**
 	 * The secure random number generator.
@@ -141,13 +154,20 @@ public final class LoginDecoder extends StatefulFrameDecoder<LoginDecoderState> 
 				throw new Exception("Invalid value for low memory flag");
 			final boolean lowMemory = lowMemoryFlag == 1;
 			final int[] archiveCrcs = new int[FileSystemConstants.ARCHIVE_COUNT];
-			for (int i = 0; i < 9; i++)
+			final int[] cacheCrcs = World.getWorld().getCrcs();
+			for (int i = 0; i < 9; i++) {
 				archiveCrcs[i] = payload.readInt();
+				if (archiveCrcs[i] != cacheCrcs[i])
+					throw new Exception("CRC mismatch");
+			}
 			loginEncryptPacketSize--;
 			final int securePayloadLength = payload.readUnsignedByte();
 			if (loginEncryptPacketSize != securePayloadLength)
-				throw new Exception("Secure payload length mismatch [" + loginEncryptPacketSize + ", " + securePayloadLength + "]");
-			final ChannelBuffer securePayload = payload.readBytes(loginEncryptPacketSize);
+				throw new Exception("Secure payload length mismatch");
+			byte[] encryptionBytes = new byte[loginEncryptPacketSize];
+			payload.readBytes(encryptionBytes);
+			final BigInteger encryptionKey = new BigInteger(encryptionBytes).modPow(RSA_EXPONENT, RSA_MODULUS);
+			final ChannelBuffer securePayload = ChannelBuffers.wrappedBuffer(encryptionKey.toByteArray());
 			final int secureId = securePayload.readUnsignedByte();
 			if (secureId != 10)
 				throw new Exception("Invalid secure payload id");
@@ -160,6 +180,10 @@ public final class LoginDecoder extends StatefulFrameDecoder<LoginDecoderState> 
 			final String password = ChannelBufferUtil.readString(securePayload);
 			if (username.length() > 12 || password.length() > 20)
 				throw new Exception("Username or password too long");
+			final long usernameLong = NameUtil.encodeBase37(username);
+			final int finalUsernameHash = (int) (usernameLong >> 16 & 31L);
+			if (usernameHash != finalUsernameHash)
+				throw new Exception("Username hash mismatch");
 			final int[] seed = new int[4];
 			seed[0] = (int) (clientSeed >> 32);
 			seed[1] = (int) clientSeed;

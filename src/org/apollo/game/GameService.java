@@ -52,14 +52,9 @@ public final class GameService extends Service {
 	private EventHandlerChainGroup chainGroup;
 
 	/**
-	 * The player {@link ClientSynchronizer}.
+	 * The world {@link ClientSynchronizer}.
 	 */
 	private ClientSynchronizer clientsynchronizer;
-
-	/**
-	 * The npc {@link ClientSynchronizer}.
-	 */
-	private ClientSynchronizer npcsynchronizer;
 
 	/**
 	 * Creates the game service.
@@ -108,13 +103,8 @@ public final class GameService extends Service {
 			final XmlNode playerNode = rootNode.getChild("player");
 			if (playerNode == null || !playerNode.hasValue())
 				throw new Exception("No player node/value.");
-			final XmlNode npcNode = rootNode.getChild("npc");
-			if (npcNode == null || !npcNode.hasValue())
-				throw new Exception("No npc node/value.");
 			final Class<?> pclazz = Class.forName(playerNode.getValue());
-			final Class<?> nclazz = Class.forName(npcNode.getValue());
 			clientsynchronizer = (ClientSynchronizer) pclazz.newInstance();
-			npcsynchronizer = (ClientSynchronizer) nclazz.newInstance();
 		} finally {
 			is.close();
 		}
@@ -141,7 +131,6 @@ public final class GameService extends Service {
 			}
 			world.pulse();
 			clientsynchronizer.synchronize();
-			npcsynchronizer.synchronize();
 		}
 	}
 

@@ -9,7 +9,7 @@ import org.apollo.game.model.Character;
  * @author Graham
  * @author Blake
  */
-public abstract class MovingDistancedCharacterAction<T extends Character> extends Action<T> {
+public abstract class MovingCharacterDistancedAction<T extends Character> extends Action<T> {
 
 	/**
 	 * The other character.
@@ -47,7 +47,7 @@ public abstract class MovingDistancedCharacterAction<T extends Character> extend
 	 * @param other The other character.
 	 * @param distance The distance.
 	 */
-	public MovingDistancedCharacterAction(int delay, boolean immediate, T character, T other, int distance) {
+	public MovingCharacterDistancedAction(int delay, boolean immediate, T character, T other, int distance) {
 		super(0, true, character);
 		this.other = other;
 		this.distance = distance;
@@ -61,23 +61,20 @@ public abstract class MovingDistancedCharacterAction<T extends Character> extend
 	 */
 	@Override
 	public void execute() {
-		if (distance > 1 && getCharacter().getPosition().getDistance(other.getPosition()) <= distance
-				|| distance == 0 && getCharacter().getPosition().equals(other.getLastPosition())) {
+		if (reached) {
+			if (getCharacter().getPosition().getDistance(other.getPosition()) > distance)
+				reached = false;
+			else
+				executeAction();
+		}
+		else if (getCharacter().getPosition().getDistance(other.getPosition()) <= distance) {
 			reached = true;
 			setDelay(delay);
-			if (immediate) {
+			if (immediate)
 				executeAction();
-				return;
-			}
-		} else {
+		} else
 			if (getCharacter().getWalkingQueue().size() == 0)
-				if (!getCharacter().getPosition().equals(other.getLastPosition()))
-					getCharacter().getWalkingQueue().walkTo(other.getLastPosition());
-			reached = false;
-			setDelay(0);
-		}
-		if (reached)
-			executeAction();
+				getCharacter().getWalkingQueue().walkTo(other.getLastPosition());
 	}
 
 	/**

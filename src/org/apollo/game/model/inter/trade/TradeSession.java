@@ -1,5 +1,7 @@
 package org.apollo.game.model.inter.trade;
 
+import java.util.Enumeration;
+
 import org.apollo.game.event.impl.SetInterfaceTextEvent;
 import org.apollo.game.event.impl.UpdateItemsEvent;
 import org.apollo.game.model.Inventory;
@@ -9,11 +11,13 @@ import org.apollo.game.model.inter.InterfaceListener;
 import org.apollo.util.TextUtil;
 
 /**
+ * The trade session.
  * @author Steve
  */
 public final class TradeSession {
 
 	/**
+	 * An {@link Enumeration} of the trading stages.
 	 * @author Steve
 	 */
 	public enum State {
@@ -48,15 +52,32 @@ public final class TradeSession {
 	 */
 	public static final int TRADE_INVENTORY_ID = 3415;
 
+	/**
+	 * The player.
+	 */
 	private final Player player;
 
+	/**
+	 * The acquaintance.
+	 */
 	private final Player acquaintance;
 
+	/**
+	 * The offered items inventory.
+	 */
 	private final Inventory offeredItems = new Inventory(28);
 
+	/**
+	 * The default trading state.
+	 */
 	private State state = State.TRADING;
 
-	protected TradeSession(Player player, Player acquaintance) {
+	/**
+	 * Creates a new trade session.
+	 * @param player The player.
+	 * @param acquaintance The player's acquaintance.
+	 */
+	public TradeSession(Player player, Player acquaintance) {
 		this.player = player;
 		this.acquaintance = acquaintance;
 		offeredItems.addListener(new OfferedItemsContainerListener(player, acquaintance));
@@ -64,7 +85,7 @@ public final class TradeSession {
 	}
 
 	/**
-	 * 
+	 * Acceps the trade session.
 	 */
 	public void accept() {
 		final TradeSession as = verifyAcquaintanceSession();
@@ -86,6 +107,9 @@ public final class TradeSession {
 		}
 	}
 
+	/**
+	 * Constructs the conformation window.
+	 */
 	private void constructComformationWindow() {
 		final TradeSession as = verifyAcquaintanceSession();
 		state = State.CONFIRMING_TRADE;
@@ -147,6 +171,9 @@ public final class TradeSession {
 		}
 	}
 
+	/**
+	 * Declines the trade.
+	 */
 	protected void decline() {
 		final TradeSession as = verifyAcquaintanceSession();
 		final Inventory pi = player.getInventory();
@@ -162,6 +189,9 @@ public final class TradeSession {
 		player.getInterfaceSet().close();
 	}
 
+	/**
+	 * Finalizes the trade giving items to opproporiate players.
+	 */
 	private void finalizeTrade() {
 		final TradeSession as = verifyAcquaintanceSession();
 		if (state == State.FINALIZING || as.getState() == State.FINALIZING)
@@ -203,6 +233,10 @@ public final class TradeSession {
 		acquaintance.getInterfaceSet().close();
 	}
 
+	/**
+	 * Gets the acquaintance.
+	 * @return The player's acquaintance.
+	 */
 	Player getAcquaintance() {
 		return acquaintance;
 	}
@@ -215,16 +249,25 @@ public final class TradeSession {
 		return offeredItems;
 	}
 
+	/**
+	 * Gets the player.
+	 * @return The player.
+	 */
 	Player getPlayer() {
 		return player;
 	}
 
+	/**
+	 * Gets the state.
+	 * @return The state.
+	 */
 	State getState() {
 		return state;
 	}
 
 	/**
-	 * @param item
+	 * Offers an item to the player's acquaintance.
+	 * @param item The item to offer.
 	 */
 	public void offerItem(Item item) {
 		final TradeSession as = verifyAcquaintanceSession();
@@ -243,7 +286,8 @@ public final class TradeSession {
 	}
 
 	/**
-	 * @param item
+	 * Removes an offer.
+	 * @param item The item to remove.
 	 */
 	public void removeOffer(Item item) {
 		final TradeSession as = verifyAcquaintanceSession();
@@ -261,10 +305,19 @@ public final class TradeSession {
 		}
 	}
 
+	/**
+	 * Sets the state.
+	 * @param state The state.
+	 * @return The state that was set.
+	 */
 	State setState(State state) {
 		return this.state = state;
 	}
 
+	/**
+	 * Verifys The acquaintance session.
+	 * @return The acquaintance session.
+	 */
 	private TradeSession verifyAcquaintanceSession() {
 		final TradeSession as = acquaintance.getSettings().getTradeSession();
 		if (as == null || as.acquaintance != player) {

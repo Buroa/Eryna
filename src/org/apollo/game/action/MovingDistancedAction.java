@@ -62,42 +62,24 @@ public abstract class MovingDistancedAction<T extends Character> extends Action<
 	 */
 	@Override
 	public void execute() {
-		if (getCharacter().getPosition().getDistance(position) <= distance) {
+		if (reached) {
+			if (getCharacter().getPosition().getDistance(position) > distance)
+				reached = false;
+			else
+				executeAction();
+		}
+		else if (getCharacter().getPosition().getDistance(position) <= distance) {
 			reached = true;
 			setDelay(delay);
-			if (immediate) {
+			if (immediate)
 				executeAction();
-				return;
-			}
-		} else {
-			if (getCharacter().getWalkingQueue().size() == 0) {
-				final int first_distance = getMove(getCharacter().getPosition().getX(), position.getX());
-				final int second_distance = getMove(getCharacter().getPosition().getY(), position.getY());
-				getCharacter().getWalkingQueue().walkTo(position.transform(first_distance, second_distance, 0));
-			}
-			reached = false;
-			setDelay(0);
-		}
-		if (reached)
-			executeAction();
+		} else
+			if (getCharacter().getWalkingQueue().size() == 0)
+				getCharacter().getWalkingQueue().walkTo(position);
 	}
 
 	/**
 	 * Executes the actual action. Called when the distance requirement is met.
 	 */
 	public abstract void executeAction();
-
-	/**
-	 * Gets the distance between the specified distances.
-	 * @param i The first distance.
-	 * @param j The second distance.
-	 * @return The distance between the specified distances.
-	 */
-	private int getMove(int i, int j) {
-		if (i - j == 0)
-			return 0;
-		if (i - j < 0)
-			return 1;
-		return i - j <= 0 ? 0 : -1;
-	}
 }

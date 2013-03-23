@@ -1,7 +1,6 @@
 package org.apollo.game.sync.task;
 
 import org.apollo.game.model.Player;
-import org.apollo.game.model.melee.Prayer;
 
 /**
  * A {@link SynchronizationTask} which does post-synchronization work for the
@@ -40,9 +39,6 @@ public final class PostPlayerSynchronizationTask extends SynchronizationTask {
 			player.decrementViewingDistance();
 			player.resetExcessivePlayers();
 		}
-
-		/* Others */
-		/* TODO Move */
-		Prayer.drainPrayer(player);
+		player.pulse();
 	}
 }

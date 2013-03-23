@@ -4,6 +4,7 @@ import java.io.BufferedInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -13,6 +14,7 @@ import java.util.logging.Logger;
 
 import org.apollo.ServerContext;
 import org.apollo.Service;
+import org.apollo.fs.FileSystemConstants;
 import org.apollo.fs.IndexedFileSystem;
 import org.apollo.fs.parser.ItemDefinitionParser;
 import org.apollo.fs.parser.NpcDefinitionParser;
@@ -158,6 +160,11 @@ public final class World {
 	private Release release;
 
 	/**
+	 * The crc table. TODO move
+	 */
+	private int[] crcs = new int[FileSystemConstants.ARCHIVE_COUNT];
+
+	/**
 	 * Creates the world.
 	 */
 	private World() {
@@ -292,6 +299,10 @@ public final class World {
 	 * @throws IOException if an I/O error occurs.
 	 */
 	public void init(int release, IndexedFileSystem fs, PluginManager mgr, ServerContext context) throws IOException {
+		final ByteBuffer crcTable = fs.getCrcTable();
+		for (int i = 0; i < crcs.length; i++)
+			crcs[i] = crcTable.getInt();
+		
 		logger.info("Loading item definitions...");
 		final ItemDefinitionParser itemParser = new ItemDefinitionParser(fs);
 		final ItemDefinition[] itemDefs = itemParser.parse();
@@ -519,5 +530,13 @@ public final class World {
 	 */
 	public void unregister(PlayerListener listener) {
 		playerListeners.remove(listener);
+	}
+
+	/**
+	 * Gets the crc table.
+	 * @return The crc table.
+	 */
+	public int[] getCrcs() {
+		return crcs;
 	}
 }

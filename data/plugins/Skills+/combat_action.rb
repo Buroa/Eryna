@@ -1,8 +1,8 @@
 require 'java'
-java_import 'org.apollo.game.action.MovingDistancedCharacterAction'
+java_import 'org.apollo.game.action.MovingCharacterDistancedAction'
 java_import 'org.apollo.game.model.EquipmentConstants'
 
-class CombatDistancedAction < MovingDistancedCharacterAction
+class CombatDistancedAction < MovingCharacterDistancedAction
   attr_reader :victim, :started, :rwalk, :retal
 
   def initialize(source, victim, time, size)
@@ -23,7 +23,7 @@ class CombatDistancedAction < MovingDistancedCharacterAction
     # check if we are in the wild
     if victim.is_controlling and not victim.position.is_in_wilderness
       if character.is_controlling
-        character.send_message "#{victim.name} is not in the wilderness!"
+        character.send_message "#{victim.name.capitalize} is not in the wilderness!"
         stop
         return
       end

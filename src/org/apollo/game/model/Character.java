@@ -145,9 +145,8 @@ public abstract class Character extends Entity {
 	 * Decreases the moving size.
 	 */
 	public void decrementMoving() {
-		if (moved == 0)
-			return;
-		moved--;
+		if (moved > 0)
+			moved--;
 	}
 
 	/**

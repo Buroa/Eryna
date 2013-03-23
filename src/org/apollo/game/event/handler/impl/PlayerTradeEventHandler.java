@@ -5,7 +5,7 @@ import org.apollo.game.event.handler.EventHandler;
 import org.apollo.game.event.handler.EventHandlerContext;
 import org.apollo.game.event.impl.PlayerOptionEvent;
 import org.apollo.game.model.Player;
-import org.apollo.game.model.inter.trade.TradeUtilities;
+import org.apollo.util.TradeUtilities;
 
 /**
  * An {@link EventHandler} for the {@link PlayerOptionEvent}

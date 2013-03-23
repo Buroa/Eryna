@@ -1,4 +1,4 @@
-package org.apollo.game.model.inter.trade;
+package org.apollo.util;
 
 import org.apollo.game.event.impl.SetInterfaceTextEvent;
 import org.apollo.game.event.impl.UpdateItemsEvent;
@@ -6,13 +6,21 @@ import org.apollo.game.model.Item;
 import org.apollo.game.model.Player;
 import org.apollo.game.model.Request;
 import org.apollo.game.model.World;
-import org.apollo.util.TextUtil;
+import org.apollo.game.model.inter.trade.TradeConstants;
+import org.apollo.game.model.inter.trade.TradeInterfaceListener;
+import org.apollo.game.model.inter.trade.TradeSession;
 
 /**
+ * The trading utilities.
  * @author Steve
  */
 public final class TradeUtilities {
 
+	/**
+	 * Initializes the trade.
+	 * @param player The player.
+	 * @param acquaintance The player's acquaintance.
+	 */
 	private static void initTrade(Player player, Player acquaintance) {
 		player.getSettings().setRequest(null);
 		final TradeSession s = player.getSettings().setTradeSession(new TradeSession(player, acquaintance));
@@ -26,8 +34,9 @@ public final class TradeUtilities {
 	}
 
 	/**
-	 * @param player
-	 * @param acquaintance
+	 * Sends a new trade request.
+	 * @param player The player.
+	 * @param acquaintance The player's acquaintance.
 	 */
 	public static void sendTradeRequest(Player player, Player acquaintance) {
 		if (!World.getWorld().isPlayerOnline(acquaintance.getName())
@@ -50,6 +59,9 @@ public final class TradeUtilities {
 		acquaintance.sendMessage(TextUtil.capitalize(player.getName()) + ":tradereq:");
 	}
 
+	/**
+	 * Default constructor preventing instantation.
+	 */
 	private TradeUtilities() {
 		// ...
 	}

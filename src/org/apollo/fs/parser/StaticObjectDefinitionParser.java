@@ -124,7 +124,6 @@ public final class StaticObjectDefinitionParser {
 		final int x = (area >> 8 & 0xFF) * 64;
 		final int y = (area & 0xFF) * 64;
 
-		byte[][][] someArray = new byte[4][64][64];
 		for (int i = 0; i < 4; i++) {
 			for (int i2 = 0; i2 < 64; i2++) {
 				for (int i3 = 0; i3 < 64; i3++) {
@@ -137,18 +136,13 @@ public final class StaticObjectDefinitionParser {
 					} else if (v <= 49) {
 						tiles.get();
 					} else if (v <= 81) {
-						someArray[i][i2][i3] = (byte) (v - 49);
-					}
-				}
-			}
-		}
-		for (int i = 0; i < 4; i++) {
-			for (int i2 = 0; i2 < 64; i2++) {
-				for (int i3 = 0; i3 < 64; i3++) {
-					if ((someArray[i][i2][i3] & 0x1) == 1 && (someArray[1][i2][i3] & 2) != 2) {
-						Position position = new Position(x + i2, y + i3, i);
-						// World.getWorld().getRegionManager().getRegionByPosition(position).addClippedPosition(position);
-						parsedTiles++;
+						v = v - 49;
+						if ((v & 0x1) == 1 && (v & 2) != 2) {
+							Position position = new Position(x + i2, y + i3, i);
+							// TODO Should we clip these tiles?
+							// how do we know they are a water tile?
+							parsedTiles++;
+						}
 					}
 				}
 			}

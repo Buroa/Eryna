@@ -4,7 +4,7 @@ java_import 'org.apollo.game.model.EquipmentConstants'
 class DefaultCombatDistancedAction < CombatDistancedAction
 
   def initialize(source, victim)
-    super source, victim, 2, 0
+    super source, victim, 2, 1
   end
 
   def executeCombat
