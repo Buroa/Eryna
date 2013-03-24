@@ -1,5 +1,6 @@
 package org.apollo;
 
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.apollo.game.model.Player;
@@ -23,6 +24,7 @@ public final class ServerHooks extends Thread {
 			for (final Player player : World.getWorld().getPlayerRepository())
 				player.logout();
 		} catch (final Exception e) {
+			logger.log(Level.SEVERE, "Error stopping Apollo.", e);
 		}
 	}
 }

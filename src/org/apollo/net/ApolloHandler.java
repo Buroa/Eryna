@@ -4,6 +4,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.apollo.ServerContext;
+import org.apollo.ServerSettings;
+import org.apollo.game.model.World;
 import org.apollo.net.codec.handshake.HandshakeConstants;
 import org.apollo.net.codec.handshake.HandshakeMessage;
 import org.apollo.net.codec.jaggrab.JagGrabRequest;
@@ -57,7 +59,9 @@ public final class ApolloHandler extends IdleStateAwareChannelUpstreamHandler {
 	@Override
 	public void channelConnected(ChannelHandlerContext ctx, ChannelStateEvent e) throws Exception {
 		final Channel channel = ctx.getChannel();
-		logger.info("Channel connected: " + channel);
+		final ServerSettings serverSettings = World.getWorld().getServerSettings();
+		if (serverSettings.isShowingConnections())
+			logger.info("Channel connected: " + channel);
 		serverContext.getChannelGroup().add(channel);
 	}
 
@@ -71,7 +75,9 @@ public final class ApolloHandler extends IdleStateAwareChannelUpstreamHandler {
 	@Override
 	public void channelDisconnected(ChannelHandlerContext ctx, ChannelStateEvent e) throws Exception {
 		final Channel channel = ctx.getChannel();
-		logger.info("Channel disconnected: " + channel);
+		final ServerSettings serverSettings = World.getWorld().getServerSettings();
+		if (serverSettings.isShowingConnections())
+			logger.info("Channel disconnected: " + channel);
 		serverContext.getChannelGroup().remove(channel);
 		final Object attachment = ctx.getAttachment();
 		if (attachment != null)

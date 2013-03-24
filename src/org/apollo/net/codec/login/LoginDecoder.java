@@ -5,6 +5,7 @@ import java.security.SecureRandom;
 
 import net.burtleburtle.bob.rand.IsaacRandom;
 
+import org.apollo.ServerSettings;
 import org.apollo.fs.FileSystemConstants;
 import org.apollo.game.model.World;
 import org.apollo.security.IsaacRandomPair;
@@ -24,14 +25,9 @@ import org.jboss.netty.channel.ChannelHandlerContext;
 public final class LoginDecoder extends StatefulFrameDecoder<LoginDecoderState> {
 	
 	/**
-	 * The RSA modulus.
+	 * The server settings.
 	 */
-	private static final BigInteger RSA_MODULUS = new BigInteger("");
-
-	/**
-	 * The RSA exponent.
-	 */
-	private static final BigInteger RSA_EXPONENT = new BigInteger("");
+	private static final ServerSettings serverSettings = World.getWorld().getServerSettings();
 
 	/**
 	 * The secure random number generator.
@@ -154,20 +150,31 @@ public final class LoginDecoder extends StatefulFrameDecoder<LoginDecoderState> 
 				throw new Exception("Invalid value for low memory flag");
 			final boolean lowMemory = lowMemoryFlag == 1;
 			final int[] archiveCrcs = new int[FileSystemConstants.ARCHIVE_COUNT];
-			final int[] cacheCrcs = World.getWorld().getCrcs();
 			for (int i = 0; i < 9; i++) {
 				archiveCrcs[i] = payload.readInt();
-				if (archiveCrcs[i] != cacheCrcs[i])
-					throw new Exception("CRC mismatch");
+			}
+			if (serverSettings.isCrcEnabled()) {
+				final int[] cacheCrcs = World.getWorld().getCrcs();
+				for (int i = 0; i < 9; i++) {
+					if (archiveCrcs[i] != cacheCrcs[i])
+						throw new Exception("CRC mismatch");
+				}
 			}
 			loginEncryptPacketSize--;
 			final int securePayloadLength = payload.readUnsignedByte();
 			if (loginEncryptPacketSize != securePayloadLength)
 				throw new Exception("Secure payload length mismatch");
-			byte[] encryptionBytes = new byte[loginEncryptPacketSize];
-			payload.readBytes(encryptionBytes);
-			final BigInteger encryptionKey = new BigInteger(encryptionBytes).modPow(RSA_EXPONENT, RSA_MODULUS);
-			final ChannelBuffer securePayload = ChannelBuffers.wrappedBuffer(encryptionKey.toByteArray());
+			ChannelBuffer securePayload = null;
+			if (serverSettings.isRsaEnabled()) {
+				final byte[] encryptionBytes = new byte[loginEncryptPacketSize];
+				final BigInteger rsaExponent = serverSettings.getRsaExponentInteger();
+				final BigInteger rsaModulus = serverSettings.getRsaModulusInteger();
+				payload.readBytes(encryptionBytes);
+				final BigInteger encryptionKey = new BigInteger(encryptionBytes).modPow(rsaExponent, rsaModulus);
+				securePayload = ChannelBuffers.wrappedBuffer(encryptionKey.toByteArray());
+			} else {
+				securePayload = payload.readBytes(loginEncryptPacketSize);
+			}
 			final int secureId = securePayload.readUnsignedByte();
 			if (secureId != 10)
 				throw new Exception("Invalid secure payload id");

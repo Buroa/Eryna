@@ -127,7 +127,7 @@ public abstract class Character extends Entity {
 	 */
 	public Character(Position position) {
 		super(position);
-		this.position = position;
+		setPosition(position);
 		this.lastPosition = position;
 		init();
 	}

@@ -1,0 +1,13 @@
+<settings>
+	<login>
+		<rsa enabled="false"></rsa>
+		<crc>false</crc>
+	</login>
+	<general>
+		<name>Eryna</name>
+	</general>
+	<network>
+		<show-connections>true</show-connections>
+		<packet-queue>false</packet-queue>
+	</network>
+</settings>

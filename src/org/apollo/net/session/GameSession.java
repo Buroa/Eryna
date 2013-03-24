@@ -6,6 +6,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.apollo.ServerContext;
+import org.apollo.ServerSettings;
 import org.apollo.game.GameConstants;
 import org.apollo.game.GameService;
 import org.apollo.game.event.Event;
@@ -14,6 +15,7 @@ import org.apollo.game.event.handler.chain.EventHandlerChainGroup;
 import org.apollo.game.event.impl.DebugMessageEvent;
 import org.apollo.game.event.impl.LogoutEvent;
 import org.apollo.game.model.Player;
+import org.apollo.game.model.World;
 import org.jboss.netty.channel.Channel;
 import org.jboss.netty.channel.ChannelFuture;
 import org.jboss.netty.channel.ChannelFutureListener;
@@ -23,6 +25,11 @@ import org.jboss.netty.channel.ChannelFutureListener;
  * @author Graham
  */
 public final class GameSession extends Session {
+	
+	/**
+	 * The server settings.
+	 */
+	private static final ServerSettings serverSettings = World.getWorld().getServerSettings();
 
 	/**
 	 * The logger for this class.
@@ -150,14 +157,15 @@ public final class GameSession extends Session {
 	 */
 	@Override
 	public void messageReceived(Object message) throws Exception {
-		if (!(eventQueue.size() >= GameConstants.EVENTS_PER_PULSE)) {
-			final Event event = (Event) message;
+		final Event event = (Event) message;
+		if (serverSettings.isPacketQueueEnabled() && !(eventQueue.size() >= GameConstants.EVENTS_PER_PULSE)) {
 			if (player.getPrivilegeLevel().toInteger() >= 1) {
 				handleEvent(event);
 				if (player.isHidden())
 					player.send(new DebugMessageEvent(event.getClass().toString(), 0));
 			} else
 				eventQueue.add(event);
-		}
+		} else
+			handleEvent(event);
 	}
 }

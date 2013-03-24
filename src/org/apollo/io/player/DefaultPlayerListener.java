@@ -8,6 +8,7 @@ import org.apollo.game.event.impl.UpdateRunEnergyEvent;
 import org.apollo.game.model.Player;
 import org.apollo.game.model.PlayerConstants;
 import org.apollo.game.model.PlayerSettings;
+import org.apollo.game.model.World;
 import org.apollo.game.model.melee.Prayer;
 
 /**
@@ -20,7 +21,7 @@ public final class DefaultPlayerListener extends PlayerListener {
 	public void login(Player player) {
 		final PlayerSettings settings = player.getSettings();
 		player.send(new IdAssignmentEvent(player.getIndex(), settings.isMembers()));
-		player.sendMessage("Wecome to Eryna.");
+		player.sendMessage("Wecome to " + World.getWorld().getServerSettings().getServerName() + ".");
 		// character design screen
 		if (!settings.hasDesignedCharacter())
 			player.getInterfaceSet().openWindow(3559);
@@ -42,8 +43,6 @@ public final class DefaultPlayerListener extends PlayerListener {
 		player.send(new ChatPrivacySettingsEvent(settings.getPublicChat(), settings.getPrivateChat(), settings.getTrade()));
 		// send the run
 		player.send(new UpdateRunEnergyEvent(player.getRunEnergy()));
-		// allow other players to finally see us
-		player.setPosition(player.getPosition());
 	}
 
 	@Override

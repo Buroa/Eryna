@@ -7,6 +7,7 @@ import java.nio.charset.Charset;
 import java.util.Date;
 
 import org.apollo.fs.IndexedFileSystem;
+import org.apollo.game.model.World;
 import org.apollo.update.resource.ApolloResourceProvider;
 import org.apollo.update.resource.CombinedResourceProvider;
 import org.apollo.update.resource.HypertextResourceProvider;
@@ -26,11 +27,6 @@ import org.jboss.netty.handler.codec.http.HttpResponseStatus;
  * @author Graham
  */
 public final class HttpRequestWorker extends RequestWorker<HttpRequest, ResourceProvider> {
-
-	/**
-	 * The value of the server header.
-	 */
-	public static final String SERVER_IDENTIFIER = "Eryna";
 
 	/**
 	 * The directory with web files.
@@ -58,7 +54,7 @@ public final class HttpRequestWorker extends RequestWorker<HttpRequest, Resource
 		bldr.append("</h1><p>");
 		bldr.append(description);
 		bldr.append("</p><hr /><address>");
-		bldr.append(SERVER_IDENTIFIER);
+		bldr.append(World.getWorld().getServerSettings().getServerName());
 		bldr.append(" Server</address></body></html>");
 		return ChannelBuffers.copiedBuffer(bldr.toString(), Charset.defaultCharset());
 	}
@@ -130,7 +126,7 @@ public final class HttpRequestWorker extends RequestWorker<HttpRequest, Resource
 
 		final HttpResponse resp = new DefaultHttpResponse(request.getProtocolVersion(), status);
 		resp.setHeader("Date", new Date());
-		resp.setHeader("Server", SERVER_IDENTIFIER);
+		resp.setHeader("Server", World.getWorld().getServerSettings().getServerName());
 		resp.setHeader("Content-type", mimeType + ", charset=" + CHARACTER_SET.name());
 		resp.setHeader("Cache-control", "no-cache");
 		resp.setHeader("Pragma", "no-cache");

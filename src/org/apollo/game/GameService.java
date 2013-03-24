@@ -8,6 +8,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+import org.apollo.ServerSettings;
 import org.apollo.Service;
 import org.apollo.game.event.handler.chain.EventHandlerChainGroup;
 import org.apollo.game.model.Player;
@@ -124,10 +125,13 @@ public final class GameService extends Service {
 				loginService.submitSaveRequest(old.getSession(), old);
 				unregistered++;
 			}
-			for (final Player p : world.getPlayerRepository()) {
-				final GameSession session = p.getSession();
-				if (session != null)
-					session.handlePendingEvents(chainGroup);
+			final ServerSettings serverSettings = World.getWorld().getServerSettings();
+			if (serverSettings.isPacketQueueEnabled()) {
+				for (final Player p : world.getPlayerRepository()) {
+					final GameSession session = p.getSession();
+					if (session != null)
+						session.handlePendingEvents(chainGroup);
+				}
 			}
 			world.pulse();
 			clientsynchronizer.synchronize();

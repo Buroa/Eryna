@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import org.apollo.ServerContext;
+import org.apollo.ServerSettings;
 import org.apollo.Service;
 import org.apollo.fs.FileSystemConstants;
 import org.apollo.fs.IndexedFileSystem;
@@ -37,6 +38,7 @@ import org.apollo.io.EquipmentDefinitionParser;
 import org.apollo.io.NpcSkillSetParser;
 import org.apollo.io.NpcSpawnParser;
 import org.apollo.io.ObjectSpawnParser;
+import org.apollo.io.ServerSettingsParser;
 import org.apollo.io.player.PlayerListener;
 import org.apollo.net.release.Release;
 import org.apollo.util.CharacterRepository;
@@ -94,7 +96,7 @@ public final class World {
 	/**
 	 * The world shops.
 	 */
-	private static final WorldStore worldStore = new WorldStore();
+	private final WorldStore worldStore = new WorldStore();
 
 	/**
 	 * Gets the world.
@@ -163,6 +165,11 @@ public final class World {
 	 * The crc table. TODO move
 	 */
 	private int[] crcs = new int[FileSystemConstants.ARCHIVE_COUNT];
+
+	/**
+	 * The server settings.
+	 */
+	private ServerSettings serverSettings;
 
 	/**
 	 * Creates the world.
@@ -299,9 +306,19 @@ public final class World {
 	 * @throws IOException if an I/O error occurs.
 	 */
 	public void init(int release, IndexedFileSystem fs, PluginManager mgr, ServerContext context) throws IOException {
-		final ByteBuffer crcTable = fs.getCrcTable();
-		for (int i = 0; i < crcs.length; i++)
-			crcs[i] = crcTable.getInt();
+		logger.info("Loading server settings...");
+		InputStream is = new FileInputStream("data/settings.xml");
+		try {
+			final ServerSettingsParser serverSettingsParser = new ServerSettingsParser(is);
+			serverSettings = serverSettingsParser.parse();
+		} finally {
+			is.close();
+		}
+		if (serverSettings.isCrcEnabled()) {
+			final ByteBuffer crcTable = fs.getCrcTable();
+			for (int i = 0; i < crcs.length; i++)
+				crcs[i] = crcTable.getInt();
+		}
 		
 		logger.info("Loading item definitions...");
 		final ItemDefinitionParser itemParser = new ItemDefinitionParser(fs);
@@ -311,7 +328,7 @@ public final class World {
 
 		logger.info("Loading equipment definitions...");
 		int nonNull = 0;
-		InputStream is = new BufferedInputStream(new FileInputStream("data/equipment-" + release + ".dat"));
+		is = new BufferedInputStream(new FileInputStream("data/equipment-" + release + ".dat"));
 		try {
 			final EquipmentDefinitionParser equipParser = new EquipmentDefinitionParser(is);
 			final EquipmentDefinition[] equipDefs = equipParser.parse();
@@ -345,6 +362,7 @@ public final class World {
 		is = new FileInputStream("data/npc-skills.xml");
 		final NpcSkillSetParser npcSkillSetParser = new NpcSkillSetParser(is);
 		final int parsed = npcSkillSetParser.parse();
+		is.close();
 		logger.info("Done (loaded " + parsed + " NPC skills).");
 
 		logger.info("Loading NPC spawns...");
@@ -370,7 +388,8 @@ public final class World {
 		}
 		is.close();
 		logger.info("Done (loaded " + objectSpawns.length + " Object spawns).");
-
+		fs.close();
+		
 		this.pluginManager = mgr;
 		this.release = context.getRelease();
 	}
@@ -538,5 +557,13 @@ public final class World {
 	 */
 	public int[] getCrcs() {
 		return crcs;
+	}
+
+	/**
+	 * Gets the server settings.
+	 * @return The server settings.
+	 */
+	public ServerSettings getServerSettings() {
+		return serverSettings;
 	}
 }
