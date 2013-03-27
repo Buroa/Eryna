@@ -9,7 +9,6 @@ import org.apollo.game.model.Player;
 import org.apollo.game.model.PlayerConstants;
 import org.apollo.game.model.PlayerSettings;
 import org.apollo.game.model.World;
-import org.apollo.game.model.melee.Prayer;
 
 /**
  * An {@link PlayerListener} which listens for login and logouts.
@@ -37,8 +36,6 @@ public final class DefaultPlayerListener extends PlayerListener {
 		// send context menus
 		player.send(new BuildPlayerMenuEvent(4, false, "Follow"));
 		player.send(new BuildPlayerMenuEvent(5, false, "Trade with"));
-		// send prayer configurations
-		Prayer.clearPrayers(player, false);
 		// send privacy settings
 		player.send(new ChatPrivacySettingsEvent(settings.getPublicChat(), settings.getPrivateChat(), settings.getTrade()));
 		// send the run

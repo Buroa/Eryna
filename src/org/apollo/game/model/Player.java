@@ -15,9 +15,7 @@ import org.apollo.game.model.inv.FullInventoryListener;
 import org.apollo.game.model.inv.InventoryListener;
 import org.apollo.game.model.inv.RunecraftingEquipmentListener;
 import org.apollo.game.model.inv.SynchronizationInventoryListener;
-import org.apollo.game.model.melee.Prayer;
 import org.apollo.game.model.skill.LevelUpSkillListener;
-import org.apollo.game.model.skill.PrayerSkillListener;
 import org.apollo.game.model.skill.SkillListener;
 import org.apollo.game.model.skill.SynchronizationSkillListener;
 import org.apollo.game.model.skill.farming.FarmingSet;
@@ -416,12 +414,9 @@ public final class Player extends Character {
 		final SkillListener syncListener = new SynchronizationSkillListener(this);
 		// level up listener
 		final SkillListener levelUpListener = new LevelUpSkillListener(this);
-		// prayer listener
-		final SkillListener prayerListener = new PrayerSkillListener(this);
 		// add the listeners
 		skills.addListener(syncListener);
 		skills.addListener(levelUpListener);
-		skills.addListener(prayerListener);
 	}
 
 	@Override
@@ -454,7 +449,7 @@ public final class Player extends Character {
 
 	@Override
 	public void pulse() {
-		Prayer.drainPrayer(this);
+		; 
 	}
 
 	/**

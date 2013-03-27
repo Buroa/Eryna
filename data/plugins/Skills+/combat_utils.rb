@@ -1,7 +1,6 @@
 require 'java'
 java_import 'org.apollo.game.sync.block.SynchronizationBlock'
 java_import 'org.apollo.game.model.GroundItem'
-java_import 'org.apollo.game.model.melee.Prayer'
 java_import 'org.apollo.game.model.Skill'
 java_import 'org.apollo.game.model.Animation'
 java_import 'org.apollo.game.model.EquipmentConstants'
@@ -69,7 +68,7 @@ end
 def get_combat_max_hit(source, victim)
   strength_level = source.skill_set.skill(Skill::STRENGTH).current_level
   potion_bonus = 0
-  prayer_bonus = Prayer.get_bonus_melee source #todo move into plugin
+  prayer_bonus = 1
   _style_bonus = get_combat_set(source).style
   style_bonus = _style_bonus != 4 ? 3 : 2
   effective_strength = 8 + ((strength_level + potion_bonus) * prayer_bonus).floor + style_bonus

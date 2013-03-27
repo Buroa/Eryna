@@ -3,7 +3,6 @@ java_import 'org.apollo.game.event.impl.ProjectileEvent'
 java_import 'org.apollo.game.model.Item'
 java_import 'org.apollo.game.model.GroundItem'
 java_import 'org.apollo.game.model.Skill'
-java_import 'org.apollo.game.model.melee.Prayer'
 java_import 'org.apollo.game.model.Skill'
 
 def create_range_projectile(source, victim, weapon)
@@ -36,7 +35,7 @@ end
 def get_range_max_hit(source, victim)
   range_level = source.skill_set.skill(Skill::RANGED).current_level
   potion_bonus = 0
-  prayer_bonus = Prayer.get_bonus_range source
+  prayer_bonus = 1
   other_bonus = 1
   style_bonus = 3
   effective_strength = ((range_level + potion_bonus) * prayer_bonus * other_bonus).floor + style_bonus

@@ -5,12 +5,18 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 /**
  * A class which contains text-related utility methods.
  * @author Graham
  */
 public final class TextUtil {
+	
+	/**
+	 * The random number generator.
+	 */
+	private static final Random random = new XSRandom();
 
 	/**
 	 * An array of characters ordered by frequency - the elements with lower
@@ -175,7 +181,7 @@ public final class TextUtil {
 	 * @return The number.
 	 */
 	public static int random(int range) {
-		final int number = (int) (Math.random() * (range + 1));
+		final int number = (int) (random.nextDouble() * (range + 1));
 		return number < 0 ? 0 : number;
 	}
 

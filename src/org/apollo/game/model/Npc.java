@@ -3,7 +3,6 @@ package org.apollo.game.model;
 import org.apollo.game.event.Event;
 import org.apollo.game.event.impl.ServerMessageEvent;
 import org.apollo.game.model.def.NpcDefinition;
-import org.apollo.game.model.melee.Prayer;
 import org.apollo.game.sync.block.SynchronizationBlock;
 
 /**
@@ -154,9 +153,7 @@ public final class Npc extends Character {
 
 	@Override
 	public void pulse() {
-		Prayer.drainPrayer(this);
-		// we could add aggressive npcs in here
-		// or in the players walking queue
+		; 
 	}
 
 	@Override

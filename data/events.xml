@@ -53,7 +53,6 @@
   <event>
     <type>org.apollo.game.event.impl.ButtonEvent</type>
     <chain>
-      <handler>org.apollo.game.event.handler.impl.PrayerButtonEventHandler</handler>
       <handler>org.apollo.game.event.handler.impl.InterfaceButtonEventHandler</handler>
       <handler>org.apollo.game.event.handler.impl.TradeButtonEventHandler</handler>
     </chain>

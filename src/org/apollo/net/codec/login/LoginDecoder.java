@@ -155,10 +155,9 @@ public final class LoginDecoder extends StatefulFrameDecoder<LoginDecoderState> 
 			}
 			if (serverSettings.isCrcEnabled()) {
 				final int[] cacheCrcs = World.getWorld().getCrcs();
-				for (int i = 0; i < 9; i++) {
+				for (int i = 0; i < 9; i++)
 					if (archiveCrcs[i] != cacheCrcs[i])
 						throw new Exception("CRC mismatch");
-				}
 			}
 			loginEncryptPacketSize--;
 			final int securePayloadLength = payload.readUnsignedByte();
@@ -172,9 +171,8 @@ public final class LoginDecoder extends StatefulFrameDecoder<LoginDecoderState> 
 				payload.readBytes(encryptionBytes);
 				final BigInteger encryptionKey = new BigInteger(encryptionBytes).modPow(rsaExponent, rsaModulus);
 				securePayload = ChannelBuffers.wrappedBuffer(encryptionKey.toByteArray());
-			} else {
+			} else
 				securePayload = payload.readBytes(loginEncryptPacketSize);
-			}
 			final int secureId = securePayload.readUnsignedByte();
 			if (secureId != 10)
 				throw new Exception("Invalid secure payload id");

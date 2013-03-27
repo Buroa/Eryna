@@ -4,7 +4,6 @@ import org.apollo.game.model.EquipmentConstants;
 import org.apollo.game.model.Inventory;
 import org.apollo.game.model.Item;
 import org.apollo.game.model.Player;
-import org.apollo.game.model.melee.CombatInterfaces;
 
 /**
  * An {@link InventoryListener} which updates the player's equipment bonuses
@@ -35,7 +34,6 @@ public final class BonusesEquipmentListener extends InventoryAdapter {
 	@Override
 	public void itemsUpdated(Inventory inventory) {
 		player.getBonuses().forceRefresh();
-		CombatInterfaces.updateWeapon(player);
 	}
 
 	/*
@@ -49,7 +47,7 @@ public final class BonusesEquipmentListener extends InventoryAdapter {
 	public void itemUpdated(Inventory inventory, int slot, Item item) {
 		player.getBonuses().forceRefresh();
 		if (slot == EquipmentConstants.WEAPON)
-			CombatInterfaces.updateWeapon(player);
+			;
 	}
 
 }
