@@ -193,4 +193,9 @@ public final class Npc extends Character {
 		return Npc.class.getName() + " [id=" + id + "]";
 	}
 
+	@Override
+	public int type() {
+		return Entity.NPC_TYPE;
+	}
+
 }

@@ -4,10 +4,12 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+
 import org.apollo.game.event.Event;
 import org.apollo.game.event.impl.MapEvent;
+import org.apollo.game.event.impl.RegionUpdateEvent;
 import org.apollo.game.model.Character;
-import org.apollo.game.model.GroundItem;
+import org.apollo.game.model.Entity;
 import org.apollo.game.model.Npc;
 import org.apollo.game.model.Player;
 import org.apollo.game.model.Position;
@@ -15,6 +17,7 @@ import org.apollo.game.model.World;
 import org.apollo.game.model.obj.DynamicGameObject;
 import org.apollo.game.model.obj.GameObject;
 import org.apollo.game.model.obj.StaticGameObject;
+import org.apollo.util.EntityRepository;
 
 /**
  * A region which consists of 8x8 chunks.
@@ -33,19 +36,9 @@ public final class Region {
 	private final Position position;
 
 	/**
-	 * The objects in this region.
+	 * The entity repository.
 	 */
-	private final List<StaticGameObject> objects = new LinkedList<StaticGameObject>();
-
-	/**
-	 * The players in this region.
-	 */
-	private final List<Player> players = new LinkedList<Player>();
-
-	/**
-	 * The npcs in this region.
-	 */
-	private final List<Npc> npcs = new LinkedList<Npc>();
+	private final EntityRepository<Entity> repository = new EntityRepository<Entity>();
 
 	/**
 	 * The region absolute position.
@@ -62,28 +55,27 @@ public final class Region {
 	}
 
 	/**
-	 * Adds a character.
-	 * @param character The character.
+	 * Adds an entity.
+	 * @param entity The entity to add.
 	 */
-	public void add(Character character) {
-		if (character.isControlling())
-			add((Player) character);
-		else
-			add((Npc) character);
-	}
-
-	/**
-	 * Adds a dynamic game object.
-	 * @param object The dynamic game object.
-	 */
-	public void add(DynamicGameObject object) {
-		getChunk(object.getPosition()).add(object);
+	public void add(Entity entity) {
+		switch (entity.type()) {
+		case Entity.DYNAMIC_OBJECT_TYPE:
+		case Entity.GROUND_TYPE:
+			// These types need to be transfered to a chunking system.
+			getChunk(entity.getPosition()).add(entity);
+			break;
+		default:
+			// The rest can be added to the entity repository.
+			repository.add(entity);
+			break;
+		}
 	}
 
 	/**
 	 * Adds a event.
 	 * @param event The event.
-	 * @deprecated instanceof
+	 * @deprecated instanceof, will be removed.
 	 */
 	@Deprecated
 	public void add(Event event) {
@@ -94,35 +86,14 @@ public final class Region {
 	}
 
 	/**
-	 * Adds a ground item.
-	 * @param item The ground item.
+	 * Gets the characters.
+	 * @return The characters.
 	 */
-	public void add(GroundItem item) {
-		getChunk(item.getPosition()).add(item);
-	}
-
-	/**
-	 * Adds a npc.
-	 * @param npc The npc.
-	 */
-	public void add(Npc npc) {
-		npcs.add(npc);
-	}
-
-	/**
-	 * Adds a player.
-	 * @param player The player.
-	 */
-	public void add(Player player) {
-		players.add(player);
-	}
-
-	/**
-	 * Adds a static object.
-	 * @param object The static object.
-	 */
-	public void add(StaticGameObject object) {
-		objects.add(object);
+	public final Collection<Character> getCharacters() {
+		final List<Character> characters = new LinkedList<Character>();
+		characters.addAll(repository.get(Player.class));
+		characters.addAll(repository.get(Npc.class));
+		return Collections.unmodifiableCollection(new LinkedList<Character>(characters));
 	}
 
 	/**
@@ -140,18 +111,8 @@ public final class Region {
 	 * @return The npcs.
 	 */
 	public final Collection<Npc> getNpcs() {
-		return Collections.unmodifiableCollection(new LinkedList<Npc>(npcs));
-	}
-	
-	/**
-	 * Gets the characters.
-	 * @return The characters.
-	 */
-	public final Collection<Character> getCharacters() {
-		final List<Character> characters = new LinkedList<Character>();
-		characters.addAll(players);
-		characters.addAll(npcs);
-		return Collections.unmodifiableCollection(new LinkedList<Character>(characters));
+		final List<Npc> list = repository.get(Entity.NPC_TYPE);
+		return Collections.unmodifiableCollection(new LinkedList<Npc>(list));
 	}
 
 	/**
@@ -163,7 +124,7 @@ public final class Region {
 	public GameObject getObject(Position position) {
 		return getObject(position, 10);
 	}
-	
+
 	/**
 	 * Gets the object at the position.
 	 * @param position The object at the position.
@@ -171,16 +132,16 @@ public final class Region {
 	 * @return The object at the position.
 	 */
 	public GameObject getObject(Position position, int type) {
-		final Collection<DynamicGameObject> objects = getChunk(position).getObjects();
-		for (final DynamicGameObject object : objects)
+		final Chunk chunk = getChunk(position);
+		final List<StaticGameObject> regionObjects = repository.get(position, StaticGameObject.class);
+		final Collection<DynamicGameObject> chunkObjects = chunk.getObject(position);
+		for (final DynamicGameObject object : chunkObjects)
 			if (!object.isDeleting() || object.isReplacing())
-				if (object.getType() == type)
-					if (object.getPosition().equals(position))
-						return object;
-		for (final StaticGameObject object : this.objects)
-			if (object.getPosition().equals(position))
-				if (object.getType() == type)
+				if (object.getType() == type || type < 0)
 					return object;
+		for (final StaticGameObject obj : regionObjects)
+			if (obj.getType() == type || type < 0)
+				return obj;
 		return null;
 	}
 
@@ -188,16 +149,18 @@ public final class Region {
 	 * Gets the players.
 	 * @return The players.
 	 */
-	public Collection<StaticGameObject> getObjects() {
-		return Collections.unmodifiableCollection(new LinkedList<StaticGameObject>(objects));
+	public final Collection<StaticGameObject> getObjects() {
+		final List<StaticGameObject> list = repository.get(Entity.STATIC_OBJECT_TYPE);
+		return Collections.unmodifiableCollection(new LinkedList<StaticGameObject>(list));
 	}
 
 	/**
 	 * Gets the players.
 	 * @return The players.
 	 */
-	public Collection<Player> getPlayers() {
-		return Collections.unmodifiableCollection(new LinkedList<Player>(players));
+	public final Collection<Player> getPlayers() {
+		final List<Player> list = repository.get(Entity.PLAYER_TYPE);
+		return Collections.unmodifiableCollection(new LinkedList<Player>(list));
 	}
 
 	/**
@@ -217,45 +180,26 @@ public final class Region {
 	}
 
 	/**
-	 * Removes a character.
-	 * @param character The character.
+	 * Removes an entity.
+	 * @param entity The entity.
 	 */
-	public void remove(Character character) {
-		if (character.isControlling())
-			remove((Player) character);
-		else
-			remove((Npc) character);
-	}
-
-	/**
-	 * Removes a item.
-	 * @param item The item.
-	 */
-	public void remove(GroundItem item) {
-		getChunk(item.getPosition()).remove(item);
-	}
-
-	/**
-	 * Removes a npc.
-	 * @param npc The npc.
-	 */
-	public void remove(Npc npc) {
-		npcs.remove(npc);
-	}
-
-	/**
-	 * Removes a player.
-	 * @param player The player.
-	 */
-	public void remove(Player player) {
-		players.remove(player);
+	public void remove(Entity entity) {
+		switch (entity.type()) {
+		case Entity.DYNAMIC_OBJECT_TYPE:
+		case Entity.GROUND_TYPE:
+			getChunk(entity.getPosition()).remove(entity);
+			break;
+		default:
+			repository.remove(entity);
+			break;
+		}
 	}
 
 	/**
 	 * Updates this region's chunks.
 	 */
 	public void update() {
-		for (final Player player : players)
+		for (final Player player : getPlayers())
 			player.setRegionChanged(true);
 	}
 
@@ -264,8 +208,12 @@ public final class Region {
 	 * @param chunk The chunk.
 	 */
 	public void update(Chunk chunk) {
-		for (final Player player : players)
-			player.send(chunk.make(player));
+		for (final Player player : getPlayers()) {
+			final RegionUpdateEvent event = chunk.make(player);
+			player.send(event);
+			// Must call this whenever we send region events.
+			player.getLocalEventList().addAll(event.getEvents());
+		}
 	}
 
 }

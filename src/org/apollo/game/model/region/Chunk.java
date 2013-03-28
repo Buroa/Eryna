@@ -12,6 +12,7 @@ import org.apollo.game.event.impl.CreateObjectEvent;
 import org.apollo.game.event.impl.DestroyGroundEvent;
 import org.apollo.game.event.impl.DestroyObjectEvent;
 import org.apollo.game.event.impl.RegionUpdateEvent;
+import org.apollo.game.model.Entity;
 import org.apollo.game.model.GroundItem;
 import org.apollo.game.model.Player;
 import org.apollo.game.model.Position;
@@ -19,6 +20,7 @@ import org.apollo.game.model.World;
 import org.apollo.game.model.obj.DynamicGameObject;
 import org.apollo.game.model.obj.GameObject;
 import org.apollo.game.scheduling.ScheduledTask;
+import org.apollo.util.EntityRepository;
 
 /**
  * A chunk which constists of 8x8 tiles.
@@ -66,19 +68,14 @@ public final class Chunk {
 	private final Position position;
 
 	/**
-	 * The objects in this chunk.
-	 */
-	private final List<DynamicGameObject> objects = new LinkedList<DynamicGameObject>();
-
-	/**
-	 * The ground items in this chunk.
-	 */
-	private final List<GroundItem> items = new LinkedList<GroundItem>();
-
-	/**
 	 * The temporary events in this chunk.
 	 */
 	private final List<Event> events = new LinkedList<Event>();
+
+	/**
+	 * The entity repository.
+	 */
+	private final EntityRepository<Entity> repository = new EntityRepository<Entity>();
 
 	/**
 	 * The chunk absolute position.
@@ -100,15 +97,6 @@ public final class Chunk {
 	}
 
 	/**
-	 * Adds a dynamic game object.
-	 * @param object The dynamic game object.
-	 */
-	public void add(DynamicGameObject object) {
-		objects.add(object);
-		schedule();
-	}
-
-	/**
 	 * Adds a timed dynamic game object.
 	 * @param object The dynamic game object.
 	 * @param time The time in pulses.
@@ -116,20 +104,35 @@ public final class Chunk {
 	public void add(final DynamicGameObject object, int time) {
 		add(object);
 		World.getWorld().schedule(new ScheduledTask(time, false) {
-	
+
 			@Override
 			public void execute() {
 				remove(object);
 				if (!object.isDeleting())
 					add(new DestroyObjectEvent(object), 1);
 				if (object.isReplacing()) {
-					GameObject old = getRegion(object.getPosition()).getObject(object.getPosition(), object.getType());
+					final GameObject old = getRegion(object.getPosition()).getObject(object.getPosition(), object.getType());
 					if (old != null)
 						add(new CreateObjectEvent(old), 1);
 				}
 				stop();
 			}
 		});
+	}
+
+	/**
+	 * Adds an entity.
+	 * @param entity The entity.
+	 */
+	public void add(Entity entity) {
+		repository.add(entity);
+		// TODO make this neater
+		switch (entity.type()) {
+		case Entity.DYNAMIC_OBJECT_TYPE:
+		case Entity.GROUND_TYPE:
+			schedule();
+			break;
+		}
 	}
 
 	/**
@@ -156,15 +159,6 @@ public final class Chunk {
 				stop();
 			}
 		});
-	}
-
-	/**
-	 * Adds a ground item.
-	 * @param item The ground item.
-	 */
-	public void add(GroundItem item) {
-		items.add(item);
-		schedule();
 	}
 
 	/**
@@ -206,7 +200,18 @@ public final class Chunk {
 	 * @return The items in this chunk.
 	 */
 	public final Collection<GroundItem> getItems() {
-		return Collections.unmodifiableCollection(new LinkedList<GroundItem>(items));
+		final List<GroundItem> list = repository.get(GroundItem.class);
+		return Collections.unmodifiableCollection(new LinkedList<GroundItem>(list));
+	}
+
+	/**
+	 * Gets the objects in this chunk.
+	 * @param position The position.
+	 * @return The objects in this chunk.
+	 */
+	public final Collection<DynamicGameObject> getObject(Position position) {
+		final List<DynamicGameObject> list = repository.get(position, DynamicGameObject.class);
+		return Collections.unmodifiableCollection(new LinkedList<DynamicGameObject>(list));
 	}
 
 	/**
@@ -214,7 +219,8 @@ public final class Chunk {
 	 * @return The objects in this chunk.
 	 */
 	public final Collection<DynamicGameObject> getObjects() {
-		return Collections.unmodifiableCollection(new LinkedList<DynamicGameObject>(objects));
+		final List<DynamicGameObject> list = repository.get(DynamicGameObject.class);
+		return Collections.unmodifiableCollection(new LinkedList<DynamicGameObject>(list));
 	}
 
 	/**
@@ -245,7 +251,7 @@ public final class Chunk {
 		final Position chunkPosition = getChunkPosition();
 		final List<Event> events = new ArrayList<Event>();
 		events.addAll(this.events);
-		for (final DynamicGameObject object : objects) {
+		for (final DynamicGameObject object : getObjects()) {
 			if (object.isDeleting()) {
 				events.add(new DestroyObjectEvent(object));
 				if (!object.isReplacing())
@@ -253,7 +259,7 @@ public final class Chunk {
 			}
 			events.add(new CreateObjectEvent(object));
 		}
-		for (final GroundItem item : items)
+		for (final GroundItem item : getItems())
 			if (item.continued(player.getName()))
 				events.add(new CreateGroundEvent(item));
 		events.removeAll(player.getLocalEventList());
@@ -261,12 +267,20 @@ public final class Chunk {
 	}
 
 	/**
-	 * Removes a dynamic object.
-	 * @param object The dynamic object.
+	 * Removes an entity.
+	 * @param entity The entity.
 	 */
-	public void remove(DynamicGameObject object) {
-		if (objects.remove(object))
-			add(new DestroyObjectEvent(object), 1);
+	public void remove(Entity entity) {
+		repository.remove(entity);
+		// TODO should this be neater
+		switch (entity.type()) {
+		case Entity.DYNAMIC_OBJECT_TYPE:
+			add(new DestroyObjectEvent((DynamicGameObject) entity), 1);
+			break;
+		case Entity.GROUND_TYPE:
+			add(new DestroyGroundEvent((GroundItem) entity), 1);
+			break;
+		}
 	}
 
 	/**
@@ -275,15 +289,6 @@ public final class Chunk {
 	 */
 	public void remove(Event event) {
 		events.remove(event);
-	}
-
-	/**
-	 * Removes a ground item.
-	 * @param item The ground item.
-	 */
-	public void remove(final GroundItem item) {
-		if (items.remove(item))
-			add(new DestroyGroundEvent(item), 1);
 	}
 
 	/**

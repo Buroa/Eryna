@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Queue;
 
 import org.apollo.game.event.Event;
 import org.apollo.game.event.impl.NpcSynchronizationEvent;
@@ -226,9 +227,12 @@ public final class PlayerSynchronizationTask extends SynchronizationTask {
 		if (!player.hasRegionChanged())
 			return;
 
-		final List<Event> localEvents = player.getLocalEventList();
+		final Queue<Event> localEvents = player.getLocalEventList();
 		final List<Chunk> chunks = World.getWorld().getRegionManager().getCenterChunks(player.getPosition());
 
+		// We can do this because we just changed a region.
+		// XXX This used to be in region change event handler.
+		localEvents.clear();
 		for (final Chunk chunk : chunks) {
 			if (chunk == null)
 				continue;

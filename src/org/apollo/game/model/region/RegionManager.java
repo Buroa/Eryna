@@ -27,22 +27,6 @@ public final class RegionManager {
 	 * The chunks.
 	 */
 	private final Map<Position, Chunk> chunks = new HashMap<Position, Chunk>();
-	
-	/**
-	 * Gets the region size.
-	 * @return The region size.
-	 */
-	public int getRegionSize() {
-		return regions.size();
-	}
-	
-	/**
-	 * Gets the chunk size.
-	 * @return The chunk size.
-	 */
-	public int getChunkSize() {
-		return chunks.size();
-	}
 
 	/**
 	 * Gets the center chunks.
@@ -99,6 +83,14 @@ public final class RegionManager {
 	}
 
 	/**
+	 * Gets the chunk size.
+	 * @return The chunk size.
+	 */
+	public int getChunkSize() {
+		return chunks.size();
+	}
+
+	/**
 	 * Gets a region by it's position.
 	 * @param position The position.
 	 * @return The region.
@@ -140,6 +132,14 @@ public final class RegionManager {
 		surrounding.add(getChunk(chunkX, chunkY));
 
 		return surrounding;
+	}
+
+	/**
+	 * Gets the region size.
+	 * @return The region size.
+	 */
+	public int getRegionSize() {
+		return regions.size();
 	}
 
 }

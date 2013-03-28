@@ -4,7 +4,7 @@ package org.apollo.game.model;
  * A class for creating or destroying a ground item.
  * @author Steve
  */
-public final class GroundItem {
+public final class GroundItem extends Entity {
 
 	/**
 	 * The name of the player who controls this item.
@@ -15,11 +15,6 @@ public final class GroundItem {
 	 * The item that is on the floor.
 	 */
 	private final Item item;
-
-	/**
-	 * The position of the item.
-	 */
-	private final Position position;
 
 	/**
 	 * The amount of remaining pulses until this item appears.
@@ -47,11 +42,11 @@ public final class GroundItem {
 	 * @param position The position.
 	 */
 	public GroundItem(String controllerName, Item item, Position position) {
+		super(position);
 		pulses = 43;
 		delete = pulses * 2;
 		this.controllerName = controllerName;
 		this.item = item;
-		this.position = position;
 	}
 
 	/**
@@ -94,7 +89,7 @@ public final class GroundItem {
 		final GroundItem other = (GroundItem) obj;
 		if (item != other.item)
 			return false;
-		if (position.equals(other.position))
+		if (!getPosition().equals(other.getPosition()))
 			return false;
 		if (controllerName != other.controllerName)
 			return false;
@@ -126,18 +121,15 @@ public final class GroundItem {
 	}
 
 	/**
-	 * Gets the position.
-	 * @return The position.
-	 */
-	public Position getPosition() {
-		return position;
-	}
-
-	/**
 	 * Gets the pulses.
 	 * @return The pulses.
 	 */
 	public int getPulses() {
 		return pulses;
+	}
+
+	@Override
+	public int type() {
+		return Entity.GROUND_TYPE;
 	}
 }

@@ -13,6 +13,5 @@ public final class RegionLoadEventHandler extends EventHandler<RegionLoadEvent> 
 
 	@Override
 	public void handle(EventHandlerContext ctx, Player player, RegionLoadEvent event) {
-		player.getLocalEventList().clear();
 	}
 }

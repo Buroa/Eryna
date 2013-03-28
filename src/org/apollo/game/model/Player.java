@@ -4,6 +4,7 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 import org.apollo.game.event.Event;
 import org.apollo.game.event.impl.LogoutEvent;
@@ -112,7 +113,7 @@ public final class Player extends Character {
 	/**
 	 * A list of local events.
 	 */
-	private final List<Event> localEvents = new ArrayList<Event>();
+	private final Queue<Event> localEvents = new ConcurrentLinkedQueue<Event>();
 
 	/**
 	 * The player's credentials.
@@ -274,7 +275,7 @@ public final class Player extends Character {
 	 * Gets the local event list.
 	 * @return The local event list.
 	 */
-	public List<Event> getLocalEventList() {
+	public Queue<Event> getLocalEventList() {
 		return localEvents;
 	}
 
@@ -555,5 +556,10 @@ public final class Player extends Character {
 	public String toString() {
 		return Player.class.getName() + " [username=" + credentials.getUsername() + ", privilegeLevel="
 				+ privilegeLevel + "]";
+	}
+
+	@Override
+	public int type() {
+		return Entity.PLAYER_TYPE;
 	}
 }

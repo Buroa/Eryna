@@ -25,7 +25,7 @@ on :encode, 317, :create_object do |event|
   offset = position.local_sector_x << 4 | position.local_sector_y
   builder.put DataType::BYTE, DataTransformation::ADD, offset
   builder.put DataType::SHORT, DataOrder::LITTLE, object.definition.id
-  builder.put DataType::BYTE, DataTransformation::SUBTRACT, (object.type << 2)+(object.rotation & 3)
+  builder.put DataType::BYTE, DataTransformation::SUBTRACT, (object.get_type << 2)+(object.rotation & 3)
   builder.to_game_packet
 end
 
@@ -34,7 +34,7 @@ on :encode, 317, :destroy_object do |event|
   object = event.object
   position = event.position
   offset = position.local_sector_x << 4 | position.local_sector_y
-  builder.put DataType::BYTE, DataTransformation::NEGATE, (object.type << 2)+(object.rotation & 3)
+  builder.put DataType::BYTE, DataTransformation::NEGATE, (object.get_type << 2)+(object.rotation & 3)
   builder.put DataType::BYTE, offset
   builder.to_game_packet
 end
