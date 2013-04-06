@@ -1,5 +1,7 @@
 package org.apollo.game.model;
 
+import org.apollo.game.model.inter.GroundItemListener;
+
 /**
  * A class for creating or destroying a ground item.
  * @author Steve
@@ -25,6 +27,11 @@ public final class GroundItem extends Entity {
 	 * The amount of remaining pulses until this item is deleted.
 	 */
 	private int delete;
+
+	/**
+	 * The listener.
+	 */
+	private GroundItemListener listener;
 
 	/**
 	 * Creates a open ground item.
@@ -87,7 +94,7 @@ public final class GroundItem extends Entity {
 		if (getClass() != obj.getClass())
 			return false;
 		final GroundItem other = (GroundItem) obj;
-		if (item != other.item)
+		if (!item.equals(other.item))
 			return false;
 		if (!getPosition().equals(other.getPosition()))
 			return false;
@@ -121,11 +128,27 @@ public final class GroundItem extends Entity {
 	}
 
 	/**
+	 * Gets the listener.
+	 * @return The listener.
+	 */
+	public GroundItemListener getListener() {
+		return listener;
+	}
+
+	/**
 	 * Gets the pulses.
 	 * @return The pulses.
 	 */
 	public int getPulses() {
 		return pulses;
+	}
+
+	/**
+	 * Sets the listener.
+	 * @param listener The listener.
+	 */
+	public void setListener(GroundItemListener listener) {
+		this.listener = listener;
 	}
 
 	@Override

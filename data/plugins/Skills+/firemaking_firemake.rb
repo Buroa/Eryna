@@ -49,13 +49,14 @@ class FiremakingAction < Action
       character.play_animation FIREMAKING_ANIMATION
       character.send_message "You attempt to light a fire..."
       character.inventory.remove item.log
+      ground_log.set_listener DisablePickupGroundItem.new
       World.world.register ground_log
       @started = true
     else
       if rand(2) == 1
         # game object
         object = DynamicGameObject.new 2732, character.position, 10, 1
-        World.world.register ground_log
+        World.world.unregister ground_log
         World.world.register object
         World.world.schedule ExpireFire.new(object, character.name)
         append_fire character.position
@@ -93,12 +94,20 @@ class ExpireFire < ScheduledTask
   end
 
   def execute
-    FIRES[object.location] = false
+    FIRES[object.position] = false
     World.world.unregister object
-    World.world.register GroundItem.new(name, Item.new(592), object.location)
+    World.world.register GroundItem.new(name, Item.new(592), object.position)
     stop
   end
 
+end
+
+class DisablePickupGroundItem
+  java_implements 'org.apollo.game.model.inter.GroundItemListener'
+
+  def itemClicked(player, item)
+    false
+  end
 end
 
 # Finds the tinderbox

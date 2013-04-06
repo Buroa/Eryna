@@ -245,7 +245,7 @@ public abstract class Character extends Entity {
 	public Position getPosition() {
 		return position;
 	}
-	
+
 	/**
 	 * Gets the region of this character.
 	 * @return The region of this character.
@@ -349,11 +349,6 @@ public abstract class Character extends Entity {
 		if (graphic != null)
 			blockSet.add(SynchronizationBlock.createGraphicBlock(graphic));
 	}
-
-	/**
-	 * Called when this character has been done updating.
-	 */
-	public abstract void pulse();
 
 	/**
 	 * Resets the block set.

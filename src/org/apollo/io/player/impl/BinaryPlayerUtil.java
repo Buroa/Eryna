@@ -10,7 +10,7 @@ import org.apollo.util.NameUtil;
  * @author Graham
  */
 public final class BinaryPlayerUtil {
-	
+
 	/**
 	 * The saved games directory string.
 	 */
@@ -20,7 +20,7 @@ public final class BinaryPlayerUtil {
 	 * The saved games directory.
 	 */
 	private static final File SAVED_GAMES_DIRECTORY = new File(SAVED_GAMES_STRING);
-	
+
 	/**
 	 * Creates the saved games directory if it does not exist.
 	 */
@@ -28,7 +28,7 @@ public final class BinaryPlayerUtil {
 		if (!SAVED_GAMES_DIRECTORY.exists())
 			SAVED_GAMES_DIRECTORY.mkdir();
 	}
-	
+
 	/**
 	 * Gets the saved game directory.
 	 * @param c The directory.
@@ -48,7 +48,7 @@ public final class BinaryPlayerUtil {
 	 */
 	public static File getFile(String name) {
 		name = NameUtil.decodeBase37(NameUtil.encodeBase37(name));
-		File directory =  getDirectory(name.charAt(0));
+		final File directory = getDirectory(name.charAt(0));
 		return new File(directory, name + ".dat");
 	}
 

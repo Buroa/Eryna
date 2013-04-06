@@ -73,9 +73,8 @@ public abstract class MovingDistancedAction<T extends Character> extends Action<
 			setDelay(delay);
 			if (immediate)
 				executeAction();
-		} else
-			if (getCharacter().getWalkingQueue().size() == 0)
-				getCharacter().getWalkingQueue().walkTo(position);
+		} else if (getCharacter().getWalkingQueue().size() == 0)
+			getCharacter().getWalkingQueue().walkTo(position);
 	}
 
 	/**

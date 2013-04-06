@@ -1,7 +1,7 @@
 # A script to 'bootstrap' all of the other plugins, wrapping Apollo's verbose
 # Java-style API in a Ruby-style API.
 #
-# Written by Graham.
+# Written by Graham and Steve.
 
 # ********************************** WARNING **********************************
 # * If you do not really understand what this is for, do not edit it without  *
@@ -328,5 +328,5 @@ end
 ProcEventHandler.__persistent__ = true
 
 # set logging
-# handler = FileHandler.new "./data/logs/#{Time.new}.log", 10000, 1
-# Logger.get_logger("").addHandler handler
+handler = FileHandler.new "./data/logs/server.log", 1000000, 1
+Logger.get_logger("").addHandler handler

@@ -25,7 +25,7 @@ import org.jboss.netty.channel.ChannelFutureListener;
  * @author Graham
  */
 public final class GameSession extends Session {
-	
+
 	/**
 	 * The server settings.
 	 */

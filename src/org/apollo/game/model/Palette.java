@@ -6,21 +6,6 @@ package org.apollo.game.model;
  * @author Graham
  */
 public class Palette {
-	
-	/**
-	 * The lumbridge palette.
-	 */
-	public final static Palette LUMBRIDGE_PALETTE = new Palette();
-	
-	static {
-		for (int z = 0; z < 4; z++) {
-			for (int x = 0; x < 13; x++) {
-				for (int y = 0; y < 13; y++) {
-					LUMBRIDGE_PALETTE.setTile(x, y, z, new PaletteTile(3200, 3200, 0));			
-				}
-			}
-		}
-	}
 
 	/**
 	 * Represents a tile to copy in the palette.
@@ -118,6 +103,18 @@ public class Palette {
 			return x << 14 | y << 3 | z << 24 | rot << 1;
 		}
 
+	}
+
+	/**
+	 * The lumbridge palette.
+	 */
+	public final static Palette LUMBRIDGE_PALETTE = new Palette();
+
+	static {
+		for (int z = 0; z < 4; z++)
+			for (int x = 0; x < 13; x++)
+				for (int y = 0; y < 13; y++)
+					LUMBRIDGE_PALETTE.setTile(x, y, z, new PaletteTile(3200, 3200, 0));
 	}
 
 	/**

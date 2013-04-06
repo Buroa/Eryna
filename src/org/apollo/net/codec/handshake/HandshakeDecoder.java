@@ -1,7 +1,7 @@
 package org.apollo.net.codec.handshake;
 
 import org.apollo.game.model.World;
-import org.apollo.net.codec.login.LoginDecoder;
+import org.apollo.net.codec.login.LoginDecoder317;
 import org.apollo.net.codec.login.LoginEncoder;
 import org.apollo.net.codec.update.UpdateDecoder;
 import org.apollo.net.codec.update.UpdateEncoder;
@@ -59,7 +59,7 @@ public final class HandshakeDecoder extends FrameDecoder {
 			switch (id) {
 			case HandshakeConstants.SERVICE_GAME:
 				ctx.getPipeline().addFirst("loginEncoder", new LoginEncoder());
-				ctx.getPipeline().addBefore("handler", "loginDecoder", new LoginDecoder());
+				ctx.getPipeline().addBefore("handler", "loginDecoder", new LoginDecoder317());
 				break;
 			case HandshakeConstants.SERVICE_UPDATE:
 				ctx.getPipeline().addFirst("updateEncoder", new UpdateEncoder());

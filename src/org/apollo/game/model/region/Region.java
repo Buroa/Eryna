@@ -1,5 +1,6 @@
 package org.apollo.game.model.region;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -20,15 +21,16 @@ import org.apollo.game.model.obj.StaticGameObject;
 import org.apollo.util.EntityRepository;
 
 /**
- * A region which consists of 8x8 chunks.
+ * A region which consists of 13x13 tiles.
  * @author Steve
  */
 public final class Region {
 
 	/**
 	 * The region size.
+	 * @note 1 for the center.
 	 */
-	public static final int SIZE = 64;
+	public static final int SIZE = Chunk.SIZE * 21 + 1;
 
 	/**
 	 * The position of this region.
@@ -52,6 +54,8 @@ public final class Region {
 	public Region(Position position) {
 		this.position = position;
 		this.regionPosition = new Position(position.getX() << 3 << 3, position.getY() << 3 << 3);
+		// tells the repository it can accept the type of objects.
+		repository.accept(Player.class, Npc.class, StaticGameObject.class);
 	}
 
 	/**
@@ -93,7 +97,7 @@ public final class Region {
 		final List<Character> characters = new LinkedList<Character>();
 		characters.addAll(repository.get(Player.class));
 		characters.addAll(repository.get(Npc.class));
-		return Collections.unmodifiableCollection(new LinkedList<Character>(characters));
+		return Collections.unmodifiableCollection(new ArrayList<Character>(characters));
 	}
 
 	/**
@@ -111,8 +115,8 @@ public final class Region {
 	 * @return The npcs.
 	 */
 	public final Collection<Npc> getNpcs() {
-		final List<Npc> list = repository.get(Entity.NPC_TYPE);
-		return Collections.unmodifiableCollection(new LinkedList<Npc>(list));
+		final List<Npc> list = repository.get(Npc.class);
+		return Collections.unmodifiableCollection(new ArrayList<Npc>(list));
 	}
 
 	/**
@@ -150,8 +154,22 @@ public final class Region {
 	 * @return The players.
 	 */
 	public final Collection<StaticGameObject> getObjects() {
-		final List<StaticGameObject> list = repository.get(Entity.STATIC_OBJECT_TYPE);
-		return Collections.unmodifiableCollection(new LinkedList<StaticGameObject>(list));
+		final List<StaticGameObject> list = repository.get(StaticGameObject.class);
+		return Collections.unmodifiableCollection(new ArrayList<StaticGameObject>(list));
+	}
+
+	/**
+	 * Gets the objects at the position.
+	 * @param position The position.
+	 * @return The objects at the position.
+	 */
+	public final Collection<GameObject> getObjects(Position position) {
+		final List<StaticGameObject> regionObjects = repository.get(position, StaticGameObject.class);
+		final Collection<DynamicGameObject> chunkObjects = getChunk(position).getObject(position);
+		final List<GameObject> objects = new ArrayList<GameObject>();
+		objects.addAll(regionObjects);
+		objects.addAll(chunkObjects);
+		return Collections.unmodifiableCollection(new ArrayList<GameObject>(objects));
 	}
 
 	/**
@@ -159,8 +177,8 @@ public final class Region {
 	 * @return The players.
 	 */
 	public final Collection<Player> getPlayers() {
-		final List<Player> list = repository.get(Entity.PLAYER_TYPE);
-		return Collections.unmodifiableCollection(new LinkedList<Player>(list));
+		final List<Player> list = repository.get(Player.class);
+		return Collections.unmodifiableCollection(new ArrayList<Player>(list));
 	}
 
 	/**

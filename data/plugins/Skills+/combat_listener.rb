@@ -8,4 +8,9 @@ class CombatListener
     # needs to be overridden
   end
 
+  def custom_death
+    false
+    # needs to be overridden
+  end
+
 end

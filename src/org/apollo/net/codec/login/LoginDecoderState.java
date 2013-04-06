@@ -1,7 +1,8 @@
 package org.apollo.net.codec.login;
 
 /**
- * An enumeration with the different states the {@link LoginDecoder} can be in.
+ * An enumeration with the different states the {@link LoginDecoder317} can be
+ * in.
  * @author Graham
  */
 public enum LoginDecoderState {

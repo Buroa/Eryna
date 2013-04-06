@@ -33,7 +33,7 @@ class StatsCommandListener < CommandListener
     grounds = World.world.items.size
     chunks = World.world.region_manager.chunk_size
     regions = World.world.region_manager.region_size
-    pirc.send_notice command.sender, "*** [ 4STATS ]: npcs:4 #{npcs} | objects:4 #{objects} | chunks:4 #{chunks} | regions:4 #{regions}"
+    pirc.send_notice command.sender, "*** [ 4STATS ]: npcs:4 #{npcs} | grounds:4 #{grounds} | chunks:4 #{chunks} | regions:4 #{regions}"
   end
 end
 

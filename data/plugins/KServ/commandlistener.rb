@@ -30,7 +30,7 @@ class StaffCommandListener < CommandListener
     elsif command.command.name == ".auth"
       if command.command.arguments.length == 1
         pass = command.command.arguments[0]
-        if pass == "passhere"
+        if pass == "UUfp6WcA"
           AUTHD.push command.sender
           pirc.send_notice command.sender, "You are now authenticated4 #{command.sender}."
         else

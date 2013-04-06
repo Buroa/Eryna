@@ -8,7 +8,9 @@
     <author>Steve</author>
   </authors>
   <scripts>
+    <script>constants.rb</script>
     <script>account.rb</script>
+    <script>server.rb</script>
   </scripts>
   <dependencies />
 </plugin>

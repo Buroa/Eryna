@@ -66,9 +66,10 @@ public final class RegionManager {
 	}
 
 	/**
-	 * Gets a region by it's position.
+	 * Gets a chunk by it's position.
 	 * @param position The position.
-	 * @return The region.
+	 * @return The chunk.
+	 * @note this will clone, use region to add anything.
 	 */
 	public Chunk getChunkByPosition(Position position) {
 		final int x = position.getRegionX() + 6;

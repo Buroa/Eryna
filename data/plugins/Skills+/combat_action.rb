@@ -20,12 +20,14 @@ class CombatDistancedAction < MovingCharacterDistancedAction
       return
     end
 
-    # check if we are in the wild
-    if victim.is_controlling and not victim.position.is_in_wilderness
-      if character.is_controlling
-        character.send_message "#{victim.name.capitalize} is not in the wilderness!"
-        stop
-        return
+    # check if we are in the wild or a minigame
+    if victim.is_controlling
+      if not victim.settings.attackable and not victim.position.is_in_wilderness
+        if character.is_controlling
+          character.send_message "#{victim.name.capitalize} is not in the wilderness!"
+          stop
+          return
+        end
       end
     end
 

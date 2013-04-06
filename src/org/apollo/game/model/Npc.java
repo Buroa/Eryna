@@ -152,11 +152,6 @@ public final class Npc extends Character {
 	}
 
 	@Override
-	public void pulse() {
-		; 
-	}
-
-	@Override
 	public void send(Event event) {
 		if (event.getEventId() == 3) {
 			final String message = ((ServerMessageEvent) event).getMessage();

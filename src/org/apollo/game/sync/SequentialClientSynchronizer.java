@@ -28,7 +28,18 @@ public final class SequentialClientSynchronizer extends ClientSynchronizer {
 		synchronizePlayers();
 		synchronizeNpcs();
 	}
-	
+
+	/**
+	 * Synchronizes the state of the npcs with the state of the server.
+	 */
+	private void synchronizeNpcs() {
+		final CharacterRepository<Npc> npcs = World.getWorld().getNpcRepository();
+		for (final Npc npc : npcs) {
+			final SynchronizationTask task = new NpcSynchronizationTask(npc);
+			task.run();
+		}
+	}
+
 	/**
 	 * Synchronizes the state of the players with the state of the server.
 	 */
@@ -46,17 +57,6 @@ public final class SequentialClientSynchronizer extends ClientSynchronizer {
 
 		for (final Player player : players) {
 			final SynchronizationTask task = new PostPlayerSynchronizationTask(player);
-			task.run();
-		}
-	}
-	
-	/**
-	 * Synchronizes the state of the npcs with the state of the server.
-	 */
-	private void synchronizeNpcs() {
-		final CharacterRepository<Npc> npcs = World.getWorld().getNpcRepository();
-		for (final Npc npc : npcs) {
-			final SynchronizationTask task = new NpcSynchronizationTask(npc);
 			task.run();
 		}
 	}

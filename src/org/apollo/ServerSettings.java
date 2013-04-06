@@ -44,19 +44,27 @@ public final class ServerSettings {
 	private boolean showConnections;
 
 	/**
+	 * Gets the rsa exponent integer.
+	 * @return The rsa exponent integer.
+	 */
+	public BigInteger getRsaExponentInteger() {
+		return rsaExponentInteger;
+	}
+
+	/**
+	 * Gets the rsa modulus integer.
+	 * @return The rsa modulus integer.
+	 */
+	public BigInteger getRsaModulusInteger() {
+		return rsaModulusInteger;
+	}
+
+	/**
 	 * Gets the server name.
 	 * @return The server name.
 	 */
 	public String getServerName() {
 		return serverName;
-	}
-	
-	/**
-	 * Gets the show connections flag.
-	 * @return True if showing connections, false if otherwise.
-	 */
-	public boolean isShowingConnections() {
-		return showConnections;
 	}
 
 	/**
@@ -81,6 +89,14 @@ public final class ServerSettings {
 	 */
 	public boolean isRsaEnabled() {
 		return rsaEnabled;
+	}
+
+	/**
+	 * Gets the show connections flag.
+	 * @return True if showing connections, false if otherwise.
+	 */
+	public boolean isShowingConnections() {
+		return showConnections;
 	}
 
 	/**
@@ -109,14 +125,6 @@ public final class ServerSettings {
 	}
 
 	/**
-	 * Sets the server name.
-	 * @param serverName The server name.
-	 */
-	public void setServerName(String serverName) {
-		this.serverName = serverName;
-	}
-
-	/**
 	 * Sets the rsa encryption keys.
 	 * @param rsaModulusInteger The rsa modulus integer.
 	 * @param rsaExponentInteger The rsa exponent integer.
@@ -125,21 +133,13 @@ public final class ServerSettings {
 		this.rsaModulusInteger = rsaModulusInteger;
 		this.rsaExponentInteger = rsaExponentInteger;
 	}
-	
+
 	/**
-	 * Gets the rsa modulus integer.
-	 * @return The rsa modulus integer.
+	 * Sets the server name.
+	 * @param serverName The server name.
 	 */
-	public BigInteger getRsaModulusInteger() {
-		return rsaModulusInteger;
-	}
-	
-	/**
-	 * Gets the rsa exponent integer.
-	 * @return The rsa exponent integer.
-	 */
-	public BigInteger getRsaExponentInteger() {
-		return rsaExponentInteger;
+	public void setServerName(String serverName) {
+		this.serverName = serverName;
 	}
 
 	/**

@@ -23,7 +23,9 @@ import org.apollo.game.scheduling.ScheduledTask;
 import org.apollo.util.EntityRepository;
 
 /**
- * A chunk which constists of 8x8 tiles.
+ * A chunk which constists of 8x8 tiles. <br>
+ * TODO check the entitys position, they might add something not belonging to
+ * the chunk
  * @author Steve
  */
 public final class Chunk {
@@ -60,7 +62,7 @@ public final class Chunk {
 	/**
 	 * The chunk size.
 	 */
-	public static final int SIZE = 8;
+	public static final int SIZE = 64;
 
 	/**
 	 * The region position.
@@ -94,6 +96,8 @@ public final class Chunk {
 	public Chunk(Position position) {
 		this.position = position;
 		this.chunkPosition = new Position(position.getX() << 3, position.getY() << 3);
+		// tells the repository it can accept the type of objects.
+		repository.accept(DynamicGameObject.class, GroundItem.class);
 	}
 
 	/**
@@ -192,7 +196,17 @@ public final class Chunk {
 	 * @return The events in this chunk.
 	 */
 	public final Collection<Event> getEvents() {
-		return Collections.unmodifiableCollection(new LinkedList<Event>(events));
+		return Collections.unmodifiableCollection(new ArrayList<Event>(events));
+	}
+
+	/**
+	 * Gets the items in this chunk.
+	 * @param position The position.
+	 * @return The items in this chunk.
+	 */
+	public final Collection<GroundItem> getItem(Position position) {
+		final List<GroundItem> list = repository.get(position, GroundItem.class);
+		return Collections.unmodifiableCollection(new ArrayList<GroundItem>(list));
 	}
 
 	/**
@@ -201,7 +215,7 @@ public final class Chunk {
 	 */
 	public final Collection<GroundItem> getItems() {
 		final List<GroundItem> list = repository.get(GroundItem.class);
-		return Collections.unmodifiableCollection(new LinkedList<GroundItem>(list));
+		return Collections.unmodifiableCollection(new ArrayList<GroundItem>(list));
 	}
 
 	/**
@@ -211,7 +225,7 @@ public final class Chunk {
 	 */
 	public final Collection<DynamicGameObject> getObject(Position position) {
 		final List<DynamicGameObject> list = repository.get(position, DynamicGameObject.class);
-		return Collections.unmodifiableCollection(new LinkedList<DynamicGameObject>(list));
+		return Collections.unmodifiableCollection(new ArrayList<DynamicGameObject>(list));
 	}
 
 	/**
@@ -220,7 +234,7 @@ public final class Chunk {
 	 */
 	public final Collection<DynamicGameObject> getObjects() {
 		final List<DynamicGameObject> list = repository.get(DynamicGameObject.class);
-		return Collections.unmodifiableCollection(new LinkedList<DynamicGameObject>(list));
+		return Collections.unmodifiableCollection(new ArrayList<DynamicGameObject>(list));
 	}
 
 	/**

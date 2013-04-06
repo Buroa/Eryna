@@ -10,12 +10,13 @@ import org.apollo.util.xml.XmlParser;
 import org.xml.sax.SAXException;
 
 /**
- * A class which parses the {@code settings.xml} file to produce {@link ServerSettings}.
+ * A class which parses the {@code settings.xml} file to produce
+ * {@link ServerSettings}.
  * @author Steve
  */
 @SuppressWarnings("javadoc")
 public final class ServerSettingsParser {
-	
+
 	/**
 	 * The {@link XmlParser} instance.
 	 */
@@ -39,7 +40,7 @@ public final class ServerSettingsParser {
 		}
 		this.is = is;
 	}
-	
+
 	/**
 	 * Parses the XML and produces a group of {@link ServerSettings}.
 	 * @return An {@link ServerSettings}.
@@ -57,9 +58,9 @@ public final class ServerSettingsParser {
 		}
 		if (!rootNode.getName().equals("settings"))
 			; // bad
-		
+
 		final ServerSettings settings = new ServerSettings();
-		for (final XmlNode eventNode : rootNode) {
+		for (final XmlNode eventNode : rootNode)
 			if (eventNode.getName().equals("login")) {
 				final String rsaNode = eventNode.getChild("rsa").getAttribute("enabled");
 				final String crcNode = eventNode.getChild("crc").getValue();
@@ -85,9 +86,8 @@ public final class ServerSettingsParser {
 				settings.setPacketQueueEnabled(packetQueueEnabled);
 				settings.setShowConnections(showConnections);
 			}
-		}
 		return settings;
-		
+
 	}
 
 }

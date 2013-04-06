@@ -17,3 +17,5 @@ end
 def append_quest_text(id, text)
   QUEST_TEXTS[id] = text
 end
+
+append_quest_text 7332, "hi"

@@ -62,7 +62,7 @@ class HomeObjectAction < DistancedAction
     if id == 4156
       if position.x == 3091
         if position.y == 3493
-          if character.is_members
+          if character.settings.members
             character.interface_set.send_option HomeObjectDialogueListener.new(1), "Member Train", "Member Hangout", "Member Broodoo", "Member Mall"
           else
             character.send_message "You need to be a member to use this portal."

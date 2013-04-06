@@ -12,7 +12,7 @@ import java.util.Random;
  * @author Graham
  */
 public final class TextUtil {
-	
+
 	/**
 	 * The random number generator.
 	 */

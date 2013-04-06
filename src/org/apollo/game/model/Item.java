@@ -39,6 +39,22 @@ public final class Item {
 		this.amount = amount;
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		final Item other = (Item) obj;
+		if (id != other.id)
+			return false;
+		if (amount != other.amount)
+			return false;
+		return true;
+	}
+
 	/**
 	 * Gets the amount.
 	 * @return The amount.

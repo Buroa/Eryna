@@ -74,21 +74,18 @@ public class TileMapBuilder {
 
 		// now fills in the tile map
 		for (final Chunk chunk : coveredChunks) {
-			for (final GameObject obj : region.getObjects()) {
+			for (final GameObject obj : region.getObjects())
 				fill(topX, topY, obj);
-			}
-			for (final GameObject obj : chunk.getObjects()) {
+			for (final GameObject obj : chunk.getObjects())
 				fill(topX, topY, obj);
-			}
-			for (final Event event : chunk.getEvents()) {
+			for (final Event event : chunk.getEvents())
 				if (event.getClass().equals(DestroyObjectEvent.class))
 					fill(topX, topY, ((DestroyObjectEvent) event).getObject());
-			}
 		}
 
 		return tileMap;
 	}
-	
+
 	/**
 	 * Fills the map with a object.
 	 * @param topX The top x position.
@@ -111,7 +108,7 @@ public class TileMapBuilder {
 		// check if we are deleting the object
 		boolean delete = false;
 		if (!obj.isStatic()) {
-			DynamicGameObject dgo = ((DynamicGameObject) obj);
+			final DynamicGameObject dgo = (DynamicGameObject) obj;
 			if (dgo.isDeleting() && !dgo.isReplacing())
 				delete = true;
 		}

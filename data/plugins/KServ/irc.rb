@@ -45,7 +45,7 @@ end
 # Set the default settings
 def _irc_load_settings
   $pirc.set_message_delay 0
-  $pirc.set_name "Eryna"
+  $pirc.set_name "Eryna[L]"
   $pirc.set_login "Eryna"
   $pirc.set_version "Eryna Services"
 end
@@ -53,7 +53,7 @@ end
 # Connect to the irc server
 def _irc_connect
   $pirc.connect "bipartite.nj.us.SwiftIRC.net", 6697, TrustingSSLSocketFactory.new
-  $pirc.identify "UUfp6WcA"
+  $pirc.identify ""
   $pirc.set_mode $pirc.nick, "+BTp"
   $pirc.join_channel "#eryna"
   $pirc.join_channel "#bots"

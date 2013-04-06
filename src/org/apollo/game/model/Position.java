@@ -4,7 +4,7 @@ package org.apollo.game.model;
  * Represents a position in the world.
  * @author Graham
  */
-public final class Position {
+public class Position {
 
 	/**
 	 * The number of height levels.
@@ -254,7 +254,7 @@ public final class Position {
 	 */
 	@Override
 	public int hashCode() {
-		return height << 30 & 0xC0000000 | y << 15 & 0x3FFF8000 | x & 0x7FFF;
+		return getRegionY() + 6 << 15 & 0x3FFF8000 | getRegionX() + 6 & 0x7FFF;
 	}
 
 	/**

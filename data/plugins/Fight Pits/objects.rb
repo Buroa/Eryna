@@ -16,7 +16,27 @@ class FightPitsDistancedAction < DistancedAction
   end
 
   def executeAction
-
+    team = minigame.get_team character
+    if object == ENTER_GAME_LOBBY
+      if team == -1 # no team
+        minigame.add PITS_LOBBY_TEAM, character
+        character.teleport PITS_LOBBY_ENTER_POSITION
+        character.send SetInterfaceTextEvent.new(2805, "Current Champion: #{minigame.champion}")
+        character.send ConfigEvent.new(560, REMOVE_FOES_REMAINING)
+        character.interface_set.open_walkable PITS_INTERFACE_ID
+      elsif team == PITS_LOBBY_TEAM
+        minigame.remove team, character
+        character.teleport PITS_LOBBY_LEAVE_POSITION
+        character.interface_set.open_walkable -1 # Clears the interface
+      end
+    elsif object == LEAVE_GAME_START
+      if team == PITS_GAME_TEAM
+        minigame.remove team, character
+        minigame.add PITS_LOBBY_TEAM, character
+        character.teleport PITS_GAME_LEAVE_POSITION
+      end
+    end
+    stop
   end
 
   def equals(other)

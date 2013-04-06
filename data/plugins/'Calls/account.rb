@@ -1,27 +1,30 @@
 require 'java'
-java_import 'org.apollo.net.codec.world.WorldResponse'
-java_import 'com.google.gson.Gson'
 java_import 'com.google.gson.JsonObject'
 
-UNKNOWN_ACCOUNT = WorldResponse.new "no data sent", false
-GSON = Gson.new
-
 on :world, :account, :getPrivilegeLevel do |request|
-  account = request.data.get "account"
-  if account != nil
-    player = loadPlayer(account).player
-    WorldResponse.new GSON.to_json(player.privilege_level)
+  account_data = request.data.get "account"
+  if account_data != nil
+    account = World.world.get_player account_data
+    if account != nil
+      WorldResponse.new GSON.to_json(player.privilege_level)
+    else
+      WorldConstants.PLAYER_OFFLINE
+    end
   else
-    UNKNOWN_ACCOUNT
+    WorldConstants.UNKNOWN_ACCOUNT
   end
 end
 
 on :world, :account, :getPosition do |request|
-  account = request.data.get "account"
-  if account != nil
-    player = loadPlayer(account).player
-    WorldResponse.new GSON.to_json(player.position)
+  account_data = request.data.get "account"
+  if account_data != nil
+    account = World.world.get_player account_data
+    if account != nil
+      WorldResponse.new GSON.to_json(player.position)
+    else
+      WorldConstants.PLAYER_OFFLINE
+    end
   else
-    UNKNOWN_ACCOUNT
+    WorldConstants.UNKNOWN_ACCOUNT
   end
 end

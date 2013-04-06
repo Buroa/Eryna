@@ -55,10 +55,25 @@ public final class ParallelClientSynchronizer extends ClientSynchronizer {
 
 	@Override
 	public void synchronize() {
-		 synchronizePlayers();
-		 synchronizeNpcs();
+		synchronizePlayers();
+		synchronizeNpcs();
 	}
-	
+
+	/**
+	 * Synchronizes the state of the npcs with the state of the server.
+	 */
+	private void synchronizeNpcs() {
+		final CharacterRepository<Npc> npcs = World.getWorld().getNpcRepository();
+		final int npcCount = npcs.size();
+
+		phaser.bulkRegister(npcCount);
+		for (final Npc npc : npcs) {
+			final SynchronizationTask task = new NpcSynchronizationTask(npc);
+			executor.submit(new PhasedSynchronizationTask(phaser, task));
+		}
+		phaser.arriveAndAwaitAdvance();
+	}
+
 	/**
 	 * Synchronizes the state of the players with the state of the server.
 	 */
@@ -83,21 +98,6 @@ public final class ParallelClientSynchronizer extends ClientSynchronizer {
 		phaser.bulkRegister(playerCount);
 		for (final Player player : players) {
 			final SynchronizationTask task = new PostPlayerSynchronizationTask(player);
-			executor.submit(new PhasedSynchronizationTask(phaser, task));
-		}
-		phaser.arriveAndAwaitAdvance();
-	}
-	
-	/**
-	 * Synchronizes the state of the npcs with the state of the server.
-	 */
-	private void synchronizeNpcs() {
-		final CharacterRepository<Npc> npcs = World.getWorld().getNpcRepository();
-		final int npcCount = npcs.size();
-		
-		phaser.bulkRegister(npcCount);
-		for (final Npc npc : npcs) {
-			final SynchronizationTask task = new NpcSynchronizationTask(npc);
 			executor.submit(new PhasedSynchronizationTask(phaser, task));
 		}
 		phaser.arriveAndAwaitAdvance();

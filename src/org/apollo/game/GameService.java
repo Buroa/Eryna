@@ -126,13 +126,12 @@ public final class GameService extends Service {
 				unregistered++;
 			}
 			final ServerSettings serverSettings = World.getWorld().getServerSettings();
-			if (serverSettings.isPacketQueueEnabled()) {
+			if (serverSettings.isPacketQueueEnabled())
 				for (final Player p : world.getPlayerRepository()) {
 					final GameSession session = p.getSession();
 					if (session != null)
 						session.handlePendingEvents(chainGroup);
 				}
-			}
 			world.pulse();
 			clientsynchronizer.synchronize();
 		}

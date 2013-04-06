@@ -4,7 +4,6 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
-import java.util.concurrent.ConcurrentLinkedQueue;
 
 import org.apollo.game.event.Event;
 import org.apollo.game.event.impl.LogoutEvent;
@@ -22,6 +21,7 @@ import org.apollo.game.model.skill.SynchronizationSkillListener;
 import org.apollo.game.model.skill.farming.FarmingSet;
 import org.apollo.game.scheduling.impl.FarmingScheduledTask;
 import org.apollo.game.sync.block.SynchronizationBlock;
+import org.apollo.io.player.PlayerListener;
 import org.apollo.net.session.GameSession;
 import org.apollo.security.PlayerCredentials;
 
@@ -113,7 +113,7 @@ public final class Player extends Character {
 	/**
 	 * A list of local events.
 	 */
-	private final Queue<Event> localEvents = new ConcurrentLinkedQueue<Event>();
+	private final List<Event> localEvents = new ArrayList<Event>();
 
 	/**
 	 * The player's credentials.
@@ -205,6 +205,12 @@ public final class Player extends Character {
 	 */
 	@Override
 	public void exit() {
+		for (final PlayerListener listener : World.getWorld().getPlayerListeners())
+			try {
+				listener.logout(this);
+			} catch (final Exception e) {
+				continue;
+			}
 	}
 
 	/**
@@ -275,7 +281,7 @@ public final class Player extends Character {
 	 * Gets the local event list.
 	 * @return The local event list.
 	 */
-	public Queue<Event> getLocalEventList() {
+	public List<Event> getLocalEventList() {
 		return localEvents;
 	}
 
@@ -446,11 +452,6 @@ public final class Player extends Character {
 	 */
 	public void logout() {
 		send(new LogoutEvent());
-	}
-
-	@Override
-	public void pulse() {
-		; 
 	}
 
 	/**

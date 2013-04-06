@@ -219,12 +219,13 @@ public final class SkillSet {
 				cur--;
 			else if (max > cur) {
 				if (i == Skill.HITPOINTS) {
-					//if (character.getPrayers().contains(Prayers.RAPID_HEAL))
-					//	cur += 2;
+					// if (character.getPrayers().contains(Prayers.RAPID_HEAL))
+					// cur += 2;
 				}
 				else if (i != Skill.PRAYER) {
-					//if (character.getPrayers().contains(Prayers.RAPID_RESTORE))
-					//	cur += 2;
+					// if
+					// (character.getPrayers().contains(Prayers.RAPID_RESTORE))
+					// cur += 2;
 				} else
 					cur++;
 			} else

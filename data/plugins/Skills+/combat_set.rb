@@ -61,6 +61,12 @@ class CombatSet
     end
   end
 
+  def remove_listener(listener)
+    if @listeners.include? listener
+      @listeners.delete listener
+    end
+  end
+
 end
 
 def get_combat_set(character)
@@ -70,4 +76,8 @@ def get_combat_set(character)
     COMBAT_SETS[character] = combat_set
   end
   return combat_set
+end
+
+on :logout do |player|
+  COMBAT_SETS[player] = nil
 end

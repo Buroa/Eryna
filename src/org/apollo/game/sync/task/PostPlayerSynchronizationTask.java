@@ -39,6 +39,5 @@ public final class PostPlayerSynchronizationTask extends SynchronizationTask {
 			player.decrementViewingDistance();
 			player.resetExcessivePlayers();
 		}
-		player.pulse();
 	}
 }

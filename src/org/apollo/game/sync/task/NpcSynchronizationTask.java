@@ -59,6 +59,5 @@ public final class NpcSynchronizationTask extends SynchronizationTask {
 		npc.getWalkingQueue().pulse();
 		npc.setTeleporting(false);
 		npc.resetBlockSet();
-		npc.pulse();
 	}
 }

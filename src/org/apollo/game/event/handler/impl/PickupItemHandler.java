@@ -1,5 +1,7 @@
 package org.apollo.game.event.handler.impl;
 
+import java.util.Collection;
+
 import org.apollo.game.event.handler.EventHandler;
 import org.apollo.game.event.handler.EventHandlerContext;
 import org.apollo.game.event.impl.PickupItemEvent;
@@ -7,6 +9,7 @@ import org.apollo.game.model.GroundItem;
 import org.apollo.game.model.Player;
 import org.apollo.game.model.Position;
 import org.apollo.game.model.World;
+import org.apollo.game.model.inter.GroundItemListener;
 import org.apollo.game.model.region.Chunk;
 import org.apollo.game.model.region.RegionManager;
 
@@ -28,12 +31,18 @@ public final class PickupItemHandler extends EventHandler<PickupItemEvent> {
 		final RegionManager regionManager = World.getWorld().getRegionManager();
 		final Position position = new Position(event.getX(), event.getY(), player.getPosition().getHeight());
 		final Chunk chunk = regionManager.getChunkByPosition(player.getPosition());
-		for (final GroundItem item : chunk.getItems())
+		final Collection<GroundItem> items = chunk.getItem(position);
+
+		for (final GroundItem item : items)
 			if (item.getItem().getId() == event.getItemId())
-				if (item.getPosition().equals(position))
-					if (item.continued(player.getName()))
-						if (player.getInventory().add(item.getItem()) == null)
-							World.getWorld().unregister(item);
-		ctx.breakHandlerChain();
+				if (item.continued(player.getName())) {
+					final GroundItemListener listener = item.getListener();
+					if (listener != null && !listener.itemClicked(player, item)) {
+						ctx.breakHandlerChain();
+						break;
+					}
+					if (player.getInventory().add(item.getItem()) == null)
+						World.getWorld().unregister(item);
+				}
 	}
 }

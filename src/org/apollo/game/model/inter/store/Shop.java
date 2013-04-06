@@ -229,10 +229,17 @@ public final class Shop {
 	 * @return The value of the item.
 	 */
 	public int sellValue(int item) {
-		if (type.equals(ShopType.REDUNDANT) || type.equals(ShopType.CLOSED) || type.equals(ShopType.NORMAL) && !items.containsBulk(item))
+		switch (type) {
+		case REDUNDANT:
+		case CLOSED:
 			return -1;
-		else
-			return payment.sellValue(item);
+		case NORMAL:
+			if (!items.containsBulk(item))
+				return -1;
+		default:
+			break;
+		}
+		return payment.sellValue(item);
 	}
 
 	/**

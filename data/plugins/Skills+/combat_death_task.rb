@@ -30,6 +30,14 @@ def schedule_death(source, victim)
     victim.play_animation DEFAULT_DEATH_ANIMATION
   end
 
+  # if we have a listener that has a custom death, stop
+  get_combat_set(victim).listeners.each do |listener|
+    if listener.custom_death
+      schedule_custom_death victim
+      return
+    end
+  end
+
   inventory = Inventory.new victim.equipment.size+victim.inventory.size
   inventory.add_all victim.equipment
   inventory.add_all victim.inventory
@@ -62,6 +70,14 @@ def schedule_death(source, victim)
         end
       end
     end
+    task.stop
+  end
+end
+
+def schedule_custom_death(victim)
+  schedule 3 do |task|
+    victim.add_health victim.health_max
+    victim.stop_animation
     task.stop
   end
 end

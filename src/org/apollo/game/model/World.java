@@ -94,17 +94,17 @@ public final class World {
 	private static final World world = new World();
 
 	/**
-	 * The world shops.
-	 */
-	private final WorldStore worldStore = new WorldStore();
-
-	/**
 	 * Gets the world.
 	 * @return The world.
 	 */
 	public static World getWorld() {
 		return world;
 	}
+
+	/**
+	 * The world shops.
+	 */
+	private final WorldStore worldStore = new WorldStore();
 
 	/**
 	 * The scheduler.
@@ -164,7 +164,7 @@ public final class World {
 	/**
 	 * The crc table. TODO move
 	 */
-	private int[] crcs = new int[FileSystemConstants.ARCHIVE_COUNT];
+	private final int[] crcs = new int[FileSystemConstants.ARCHIVE_COUNT];
 
 	/**
 	 * The server settings.
@@ -184,6 +184,14 @@ public final class World {
 	 */
 	public CommandDispatcher getCommandDispatcher() {
 		return dispatcher;
+	}
+
+	/**
+	 * Gets the crc table.
+	 * @return The crc table.
+	 */
+	public int[] getCrcs() {
+		return crcs;
 	}
 
 	/**
@@ -240,7 +248,7 @@ public final class World {
 	 * guaranteed to work in future releases!
 	 * <p>
 	 * Instead, use the {@link World#register(Player)} and
-	 * {@link World#unregister(Player)} methods which do the same thing and will
+	 * {@link World#unregister(Entity)} methods which do the same thing and will
 	 * continue to work as normal in future releases.
 	 * @return The character repository.
 	 */
@@ -270,6 +278,14 @@ public final class World {
 	 */
 	public Release getRelease() {
 		return release;
+	}
+
+	/**
+	 * Gets the server settings.
+	 * @return The server settings.
+	 */
+	public ServerSettings getServerSettings() {
+		return serverSettings;
 	}
 
 	/**
@@ -319,7 +335,7 @@ public final class World {
 			for (int i = 0; i < crcs.length; i++)
 				crcs[i] = crcTable.getInt();
 		}
-		
+
 		logger.info("Loading item definitions...");
 		final ItemDefinitionParser itemParser = new ItemDefinitionParser(fs);
 		final ItemDefinition[] itemDefs = itemParser.parse();
@@ -389,7 +405,7 @@ public final class World {
 		is.close();
 		logger.info("Done (loaded " + objectSpawns.length + " Object spawns).");
 		fs.close();
-		
+
 		this.pluginManager = mgr;
 		this.release = context.getRelease();
 	}
@@ -497,50 +513,36 @@ public final class World {
 	}
 
 	/**
-	 * Unregisters an game object.
-	 * @param object The game object.
+	 * Unregisteres an entity.
+	 * @param entity The entity to unregister.
 	 */
-	public void unregister(DynamicGameObject object) {
-		regionManager.getChunkByPosition(object.getPosition()).remove(object);
-	}
-
-	/**
-	 * Unregisters an ground item.
-	 * @param item The ground item.
-	 */
-	public void unregister(GroundItem item) {
-		if (items.remove(item))
-			regionManager.getRegionByPosition(item.getPosition()).remove(item);
-	}
-
-	/**
-	 * Unregisters the specified npc.
-	 * @param npc The npc.
-	 */
-	public void unregister(Npc npc) {
-		if (npcRepository.remove(npc)) {
-			npc.exit();
-			regionManager.getRegionByPosition(npc.getPosition()).remove(npc);
-		} else
-			logger.warning("Could not find npc to unregister: " + npc + "!");
-	}
-
-	/**
-	 * Unregisters the specified player.
-	 * @param player The player.
-	 */
-	public void unregister(Player player) {
-		if (playerRepository.remove(player)) {
-			for (final PlayerListener listener : playerListeners)
-				try {
-					listener.logout(player);
-				} catch (final Exception e) {
-					continue;
-				}
-			regionManager.getRegionByPosition(player.getPosition()).remove(player);
-			logger.info("Unregistered player: " + player + " [online=" + playerRepository.size() + "]");
-		} else
-			logger.warning("Could not find player to unregister: " + player + "!");
+	public void unregister(Entity entity) {
+		switch (entity.type()) {
+		case Entity.PLAYER_TYPE:
+			final Player player = (Player) entity;
+			if (playerRepository.remove(player)) {
+				regionManager.getRegionByPosition(player.getPosition()).remove(player);
+				logger.info("Unregistered player: " + player + " [online=" + playerRepository.size() + "]");
+			} else
+				logger.warning("Could not find player to unregister: " + player + "!");
+			break;
+		case Entity.NPC_TYPE:
+			final Npc npc = (Npc) entity;
+			if (npcRepository.remove(npc)) {
+				npc.exit();
+				regionManager.getRegionByPosition(npc.getPosition()).remove(npc);
+			} else
+				logger.warning("Could not find npc to unregister: " + npc + "!");
+			break;
+		case Entity.GROUND_TYPE:
+			final GroundItem item = (GroundItem) entity;
+			if (items.remove(item))
+				regionManager.getChunkByPosition(item.getPosition()).remove(item);
+			break;
+		default:
+			regionManager.getRegionByPosition(entity.getPosition()).remove(entity);
+			break;
+		}
 	}
 
 	/**
@@ -549,21 +551,5 @@ public final class World {
 	 */
 	public void unregister(PlayerListener listener) {
 		playerListeners.remove(listener);
-	}
-
-	/**
-	 * Gets the crc table.
-	 * @return The crc table.
-	 */
-	public int[] getCrcs() {
-		return crcs;
-	}
-
-	/**
-	 * Gets the server settings.
-	 * @return The server settings.
-	 */
-	public ServerSettings getServerSettings() {
-		return serverSettings;
 	}
 }
